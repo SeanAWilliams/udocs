@@ -1,0 +1,6 @@
+*.db
+_docs
+docs.tar.gz
+pkg/
+udocs
+ci
