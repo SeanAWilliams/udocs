@@ -1,7 +1,10 @@
 # UDocs
+
 `udocs` is a Go CLI that lets developers easily build, deploy, and publish their app's documentation
 guide. Documentation content is written in Markdown, and persisted in a `docs/` directory at the root of your project's Git repository.
 From there, `udocs` can render the guide's content to HTML, and optionally serve it locally over HTTP for viewing, or send it to a remote UDocs instance for hosting.
+
+> Note: UDocs currently has an Alpha release status, and is under active development.
 
 ---
 
@@ -16,7 +19,9 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 --- 
 
 ## Installation
+
 ### Requirements
+
 - Git 2.7+
 - Go 1.6+
 - bash
@@ -25,13 +30,15 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 > Note: all `udocs`-related content (configs, libs, caches, binaries, etc.) will be installed under the directory `${HOME}/.udocs`. If you wish to uninstall `udocs` (and remove all related content from your system), simply `rm -rf ~/.udocs`. 
 
 ### Using the boostrap installer script (recommended)
+
 ```bash
-$ curl https://raw.githubusercontent.com/ultimatesoftware/udocs/bin/boostrap.sh | bash
+$ curl https://raw.githubusercontent.com/UltimateSoftware/udocs/master/bin/bootstrap.sh | bash
 
 $ udocs --help
 ```
 
 ### Clone and build from source
+
 ```bash
 $ go get github.com/ultimatesoftware/udocs
 
@@ -53,6 +60,7 @@ $ udocs --help
 ---
 
 ## Usage
+
 ```
 $ udocs --help                                                                                                                                                 [±master ●▴]
 
@@ -93,6 +101,7 @@ Use "udocs [command] --help" for more information about a command.
 Executing `udocs env` will output the state of your current, local environment.
 
 ## Vendored Dependencies
+
 - https://github.com/blevesearch/bleve (Apache)
 - https://github.com/dimfeld/httptreemux (MIT)
 - https://github.com/mholt/archiver (MIT)

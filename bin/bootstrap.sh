@@ -1,5 +1,6 @@
 #!/bin/bash
-set -e 
+
+set -e -x 
 
 DIR=$GOPATH/src/github.com/ultimatesoftware
 mkdir -p $DIR
