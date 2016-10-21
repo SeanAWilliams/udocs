@@ -4,12 +4,13 @@
 
 ### Issues
 
-- compile all static files into the binary, to clean up build/package
+- compile all static files into the binary, to clean up build/package (https://github.com/jteeuwen/go-bindata)
+- all HTML pages should be entirely pre-rendered, so that they serve faster. currently, they are still being templated into the response
 - anchor tag goto is about 50 px's off
 - running udocs serve -d <dir>, where dir is not docs dir, gives weird error message
 - bin/install.sh is needlessly specific, and often redudant in regards to Dockerfile
 - handler tests... all of them
-- Encapsulate mutatation of settings and instead use env vars, for dynamic restaging, and then just log when you do it
+- Encapsulate mutatation of settings and instead use env vars, for dynamic restaging, and then just log when you do it (for transparency)
 - Disable file server currently allowing static files directory to be hit from browser
 - Make error messages less stack-based, and more human-readable
 
