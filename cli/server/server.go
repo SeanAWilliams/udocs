@@ -6,24 +6,23 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/dimfeld/httptreemux"
 	"github.com/ultimatesoftware/udocs/cli/config"
 	"github.com/ultimatesoftware/udocs/cli/storage"
 	"github.com/ultimatesoftware/udocs/cli/udocs"
+	"github.com/ultimatesoftware/udocs/static"
 	"golang.org/x/net/context"
 )
 
 type Server struct {
-	treeMux    *httptreemux.TreeMux
-	fileServer http.Handler
-	settings   config.Settings
-	dao        storage.Dao
-	tmpl       *udocs.Template
-	scheme     string
-	host       string
+	treeMux  *httptreemux.TreeMux
+	settings config.Settings
+	dao      storage.Dao
+	tmpl     *udocs.Template
+	scheme   string
+	host     string
 }
 
 var BaseDirs = []string{
@@ -32,16 +31,18 @@ var BaseDirs = []string{
 	udocs.DeployPath(),
 }
 
+var Tmpls = udocs.DefaultTemplateFiles() // TODO: figure out a better place for this...
+
 func New(settings *config.Settings, dao storage.Dao) *Server {
 	if err := createBaseDirs(); err != nil {
 		log.Fatalf("server.New: failed to create base directories: %v", err)
 	}
 
-	tmpl := udocs.MustParseTemplate(defaultTemplateParams(*settings), udocs.DefaultTemplateFiles()...)
+	tmpl := udocs.MustParseTemplate(defaultTemplateParams(*settings), Tmpls...)
 
-	if err := os.Symlink(udocs.StaticPath(), filepath.Join(udocs.DeployPath(), "static")); err != nil && os.IsNotExist(err) {
-		log.Fatalf("server.New: failed to symlink static directory: %v", err)
-	}
+	// if err := os.Symlink(udocs.StaticPath(), filepath.Join(udocs.DeployPath(), "static")); err != nil && os.IsNotExist(err) {
+	// 	log.Fatalf("server.New: failed to symlink static directory: %v", err)
+	// }
 
 	scheme, host := parseHostURL(settings.EntryPoint)
 
@@ -50,13 +51,12 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 	}
 
 	s := &Server{
-		treeMux:    httptreemux.New(),
-		fileServer: http.FileServer(http.Dir(udocs.DeployPath())),
-		settings:   *settings,
-		dao:        dao,
-		tmpl:       tmpl,
-		scheme:     scheme,
-		host:       host,
+		treeMux:  httptreemux.New(),
+		settings: *settings,
+		dao:      dao,
+		tmpl:     tmpl,
+		scheme:   scheme,
+		host:     host,
 	}
 
 	s.registerEndpoints()
@@ -64,13 +64,18 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 }
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// use file-server to serve static pages (fonts, stylesheets, scripts, etc.)
 	if strings.HasPrefix(r.URL.Path, "/static") {
-		s.fileServer.ServeHTTP(w, r)
+		filename := r.URL.Path[len("/static/"):]
+		data, err := static.Asset(filename)
+		if err != nil {
+			logAndWriteError(w, r, http.StatusNotFound, "asset was not found: "+r.URL.Path, err)
+			return
+		}
+
+		logAndWriteBinaryResponse(w, r, http.StatusOK, data)
 		return
 	}
 
-	// otherwise, use default router
 	s.treeMux.ServeHTTP(w, r)
 }
 
@@ -91,6 +96,7 @@ func (s *Server) Handle(method, path string, h ContextHandlerFunc) {
 
 func (s *Server) registerEndpoints() {
 	s.Handle(http.MethodGet, "/", s.reverseProxyHandler)
+	// s.Handle(http.MethodGet, "/static", s.staticHandler)
 	s.Handle(http.MethodGet, "/:route", s.pageHandler)
 	s.Handle(http.MethodGet, "/:route/*", s.pageHandler)
 	s.Handle(http.MethodPost, "/api/:route", s.updateHandler)

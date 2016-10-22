@@ -33,7 +33,21 @@ func (s *Server) reverseProxyHandler(ctx context.Context, w http.ResponseWriter,
 	httputil.NewSingleHostReverseProxy(rootURL).ServeHTTP(w, r)
 }
 
+// func (s *Server) staticHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+// 	data, err := udocs.FetchAsset("cli/udocs" + r.URL.Path)
+// 	if err != nil {
+// 		logAndWriteError(w, r, http.StatusNotFound, "asset was not found: "+r.URL.Path, err)
+// 		return
+// 	}
+// 	logAndWriteBinaryResponse(w, r, http.StatusOK, data)
+// }
+
 func (s *Server) pageHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	// if strings.HasPrefix(r.URL.Path, "/static/") {
+	// 	s.staticHandler(ctx, w, r)
+	// 	return
+	// }
+
 	if udocs.IsQuipBlob(r.URL.Path) {
 		paths := strings.Split(r.URL.Path, "/")
 		if len(paths) != 4 {
@@ -195,7 +209,7 @@ func extractTarball(rc io.ReadCloser, dest string) (string, error) {
 		return "", fmt.Errorf("api.extractTarball failed to make dest directory: %v", err)
 	}
 
-	if err := archiver.UntarGz(tarball, dest); err != nil {
+	if err := archiver.TarGz.Open(tarball, dest); err != nil {
 		return "", fmt.Errorf("api.extractTarball failed to gunzip src tar file: %v", err)
 	}
 
@@ -211,7 +225,16 @@ func generalizeStringMap(m map[string]string) map[string]interface{} {
 }
 
 func logAndWriteBinaryResponse(w http.ResponseWriter, r *http.Request, code int, data []byte) {
+	if ext := filepath.Ext(r.URL.Path); ext == ".css" || ext == ".min.css" {
+		fmt.Println(r.URL.Path)
+		w.Header().Set("content-type", "text/css")
+	}
+	if ext := filepath.Ext(r.URL.Path); ext == ".js" || ext == ".min.js" {
+		fmt.Println(r.URL.Path)
+		w.Header().Set("content-type", "text/javascript")
+	}
 	w.WriteHeader(code)
+
 	w.Write(data)
 	logResponse(code, r)
 }

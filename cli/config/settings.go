@@ -37,13 +37,12 @@ func DefaultSettings() Settings {
 		BindAddr:          "0.0.0.0",
 		Port:              "9554",
 		RootRoute:         "/home",
-		Organization:      "Ultimate Software",
+		Organization:      "",
 		Email:             "user@email.com",
 		SearchPlaceholder: "Search UDocs",
-		Routes:            []string{"home", "test_only", "udocs"},
+		Routes:            []string{},
 		Seed:              []string{},
 		MongoURL:          "",
-		LogoURL:           "/static/images/ultimatelogo.png",
 	}
 }
 
@@ -91,7 +90,7 @@ func loadEnvVar(key, defaultValue string) string {
 func Conf() Settings {
 	f, err := os.Open(udocs.ConfPath())
 	if err != nil {
-		return EnvVars(Settings{})
+		return EnvVars(DefaultSettings())
 	}
 	defer f.Close()
 	return loadFromMap(toMap(f))
@@ -110,7 +109,6 @@ func loadFromMap(m map[string]string) Settings {
 		Routes:            strings.Split(m["UDOCS_ROUTES"], ","),
 		Seed:              strings.Split(m["UDOCS_SEED"], ","),
 		MongoURL:          m["UDOCS_MONGO_URL"],
-		LogoURL:           m["UDOCS_LOGO_URL"],
 		QuipAccessToken:   m["UDOCS_QUIP_ACCESS_TOKEN"],
 	}
 }

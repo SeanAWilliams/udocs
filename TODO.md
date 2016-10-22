@@ -4,6 +4,7 @@
 
 ### Issues
 
+- make default template dir overridable
 - compile all static files into the binary, to clean up build/package (https://github.com/jteeuwen/go-bindata)
 - all HTML pages should be entirely pre-rendered, so that they serve faster. currently, they are still being templated into the response
 - anchor tag goto is about 50 px's off

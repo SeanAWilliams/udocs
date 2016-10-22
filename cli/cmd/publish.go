@@ -31,7 +31,7 @@ func Publish() *cobra.Command {
 			tarball := filepath.Join(os.TempDir(), "udocs", filepath.Base(dir)+".tar.gz")
 			defer os.Remove(tarball)
 
-			if err := archiver.TarGz(tarball, []string{dir}); err != nil {
+			if err := archiver.TarGz.Make(tarball, []string{dir}); err != nil {
 				fmt.Printf("Publish failed: %v\n", err)
 				os.Exit(-1)
 			}

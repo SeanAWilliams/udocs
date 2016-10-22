@@ -4,17 +4,24 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"io/ioutil"
+	"os"
 	"path/filepath"
+
+	"github.com/ultimatesoftware/udocs/static"
 )
 
-var defaultTemplateFiles = []string{
-	absTmplPath("v2/document.html"),
-	absTmplPath("v2/header.html"),
-	absTmplPath("v2/navbar.html"),
-	absTmplPath("v2/sidebar.html"),
-	absTmplPath("v2/inner.html"),
-	absTmplPath("v2/search.html"),
-}
+var (
+	defaultTemplateDir   = "templates/v2"
+	defaultTemplateFiles = []string{
+		"document.html",
+		"header.html",
+		"navbar.html",
+		"sidebar.html",
+		"inner.html",
+		"search.html",
+	}
+)
 
 type Template struct {
 	params map[string]interface{}
@@ -22,8 +29,35 @@ type Template struct {
 	tmpl   *template.Template
 }
 
+func LoadTemplateFiles(files ...string) ([]string, error) {
+	tmp := filepath.Join(os.TempDir(), "udocs", defaultTemplateDir)
+	os.MkdirAll(tmp, 0755)
+
+	var tmpls []string
+	for _, f := range files {
+		data, err := static.Asset(filepath.Join(defaultTemplateDir, f))
+		if err != nil {
+			return []string{}, err
+		}
+
+		filename := filepath.Join(tmp, f)
+		if err := ioutil.WriteFile(filename, data, 0755); err != nil {
+			return []string{}, err
+		}
+		tmpls = append(tmpls, filename)
+	}
+
+	return tmpls, nil
+}
+
 func MustParseTemplate(params map[string]interface{}, files ...string) *Template {
-	tmpl := template.Must(template.ParseFiles(files...))
+	templates, err := LoadTemplateFiles(files...)
+	if err != nil {
+		panic(err)
+
+	}
+
+	tmpl := template.Must(template.ParseFiles(templates...))
 	return &Template{
 		params: params,
 		files:  files,
@@ -58,8 +92,4 @@ func (t *Template) ExecuteTemplate(w io.Writer, name string, b []byte) error {
 
 func DefaultTemplateFiles() []string {
 	return defaultTemplateFiles
-}
-
-func absTmplPath(filename string) string {
-	return filepath.Join(TemplatePath(), filename)
 }

@@ -1,0 +1,9 @@
+{{define "inner"}} {{.Content}}
+<br>
+<hr/> {{if .Params.repo}}
+<h4 style="text-align: center;">
+	<a href='{{.Params.repo}}' rel="nofollow">
+		<i class="fa fa-code"></i> View the source for this page in Stash <i class="fa fa-code"></i>
+	</a>
+</h4>
+{{end}} {{end}}

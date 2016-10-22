@@ -15,9 +15,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/mholt/archiver"
 	"github.com/ultimatesoftware/udocs/cli/storage"
-	"gopkg.in/fsnotify.v1"
 )
 
 const (
@@ -240,7 +240,7 @@ func GitArchive(project, repo string, dao storage.Dao) error {
 
 	buildFilePath := filepath.Join(BuildPath(), version)
 	os.MkdirAll(buildFilePath, 0750)
-	if err := archiver.Unzip(archiveFilePath, buildFilePath); err != nil {
+	if err := archiver.Zip.Open(archiveFilePath, buildFilePath); err != nil {
 		return err
 	}
 
