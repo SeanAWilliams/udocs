@@ -15,6 +15,7 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 - Cross-document search (powered by [bleve](https://github.com/blevesearch/bleve))
 - Live-reloading of UDocs server when making local document changes 
 - MongoDB compatible 
+- Single binary
 
 --- 
 
@@ -27,30 +28,14 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 - bash
 - Linux or Mac OS X
 
-> Note: all `udocs`-related content (configs, libs, caches, binaries, etc.) will be installed under the directory `${HOME}/.udocs`. If you wish to uninstall `udocs` (and remove all related content from your system), simply `rm -rf ~/.udocs`. 
-
-### Using the boostrap installer script (recommended)
-
-```bash
-$ curl https://raw.githubusercontent.com/UltimateSoftware/udocs/master/bin/bootstrap.sh | bash
-
-$ udocs --help
-```
-
 ### Clone and build from source
 
 ```bash
-$ go get github.com/ultimatesoftware/udocs
-
-$ cd $GOPATH/src/github.com/ultimatesoftware/udocs
-
-# run the CLI install script that places UDocs in your $PATH, as well as all library/static files
-# under the ~/.udocs directory in the local filesystem
-$ ./bin/install.sh
+$ go get -u github.com/ultimatesoftware/udocs
 
 # you can adjust UDocs configuration settings in two ways:
 $ vim ~/.udocs/udocs.conf
-# OR by setting the environment variables in:
+# OR by setting the environment variables, i.e:
 $ vim ~/.udocs/.udocs_env && ~/.udocs/.udocs_env
 
 # run UDocs!
