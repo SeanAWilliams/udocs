@@ -27,12 +27,6 @@ const (
 	INDEX_HTML   = "index.html"
 )
 
-var FetchAsset func(string) ([]byte, error)
-
-func init() {
-	FetchAsset = Asset
-}
-
 // Validate validates the the given docs directory meets the format required by UDocs.
 // Specifically, the directory must exist, be named "docs" , and include both a README.md and SUMMARY.md file at the root of the directory.
 func Validate(dir string) error {

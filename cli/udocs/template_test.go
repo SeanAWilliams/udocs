@@ -3,7 +3,7 @@ package udocs
 import "testing"
 
 func TestMustParseTemplate(t *testing.T) {
-	files := DefaultTemplateFiles(false)
+	files := DefaultTemplateFiles()
 	params := map[string]interface{}{"email": "user@email.com"}
 
 	template := MustParseTemplate(params, files...)

@@ -7,6 +7,7 @@ var buildNumber string
 
 func main() {
 	cmd.BuildNumber = buildNumber
+
 	// commands MUST be in alphabetical order
 	cmd.Root.AddCommand(
 		cmd.Build(),

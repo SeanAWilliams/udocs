@@ -14,7 +14,7 @@ import (
 func TestPublish(t *testing.T) {
 	settings := config.DefaultSettings()
 	dao := storage.NewMockDao("")
-	server.Tmpls = udocs.DefaultTemplateFiles(false)
+	server.Tmpls = udocs.DefaultTemplateFiles()
 	s := httptest.NewServer(server.New(&settings, dao))
 	os.Setenv("UDOCS_PORT", s.Listener.Addr().String()[len("127.0.0.1:"):])
 	defer s.Close()

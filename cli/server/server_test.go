@@ -17,7 +17,7 @@ import (
 func TestNew(t *testing.T) {
 	settings := config.DefaultSettings()
 	dao := storage.NewMockDao(os.TempDir())
-	Tmpls = udocs.DefaultTemplateFiles(false)
+	Tmpls = udocs.DefaultTemplateFiles()
 
 	if s := New(&settings, dao); s == nil {
 		t.Error("(s *server) cannot be nil")
@@ -27,7 +27,7 @@ func TestNew(t *testing.T) {
 func TestHandle(t *testing.T) {
 	settings := config.DefaultSettings()
 	dao := storage.NewMockDao(udocs.DeployPath())
-	Tmpls = udocs.DefaultTemplateFiles(false)
+	Tmpls = udocs.DefaultTemplateFiles()
 	server := New(&settings, dao)
 
 	testData := []byte(`<h1>UDocs<\h1>`)

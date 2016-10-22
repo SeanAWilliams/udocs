@@ -12,18 +12,17 @@ import (
 	"github.com/ultimatesoftware/udocs/cli/config"
 	"github.com/ultimatesoftware/udocs/cli/storage"
 	"github.com/ultimatesoftware/udocs/cli/udocs"
+	"github.com/ultimatesoftware/udocs/static"
 	"golang.org/x/net/context"
 )
 
 type Server struct {
-	treeMux    *httptreemux.TreeMux
-	fileServer http.Handler
-	settings   config.Settings
-	dao        storage.Dao
-	tmpl       *udocs.Template
-	scheme     string
-	host       string
-	StaticPath string
+	treeMux  *httptreemux.TreeMux
+	settings config.Settings
+	dao      storage.Dao
+	tmpl     *udocs.Template
+	scheme   string
+	host     string
 }
 
 var BaseDirs = []string{
@@ -32,7 +31,7 @@ var BaseDirs = []string{
 	udocs.DeployPath(),
 }
 
-var Tmpls = udocs.DefaultTemplateFiles(true)
+var Tmpls = udocs.DefaultTemplateFiles() // TODO: figure out a better place for this...
 
 func New(settings *config.Settings, dao storage.Dao) *Server {
 	if err := createBaseDirs(); err != nil {
@@ -52,14 +51,12 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 	}
 
 	s := &Server{
-		treeMux: httptreemux.New(),
-		// fileServer: udocs.StaticHandler,
-		settings:   *settings,
-		dao:        dao,
-		tmpl:       tmpl,
-		scheme:     scheme,
-		host:       host,
-		StaticPath: "static",
+		treeMux:  httptreemux.New(),
+		settings: *settings,
+		dao:      dao,
+		tmpl:     tmpl,
+		scheme:   scheme,
+		host:     host,
 	}
 
 	s.registerEndpoints()
@@ -67,9 +64,9 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 }
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// // use file-server to serve static pages (fonts, stylesheets, scripts, etc.)
 	if strings.HasPrefix(r.URL.Path, "/static") {
-		data, err := udocs.FetchAsset(".." + r.URL.Path)
+		filename := r.URL.Path[len("/static/"):]
+		data, err := static.Asset(filename)
 		if err != nil {
 			logAndWriteError(w, r, http.StatusNotFound, "asset was not found: "+r.URL.Path, err)
 			return
@@ -79,7 +76,6 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// otherwise, use default router
 	s.treeMux.ServeHTTP(w, r)
 }
 

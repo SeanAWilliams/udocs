@@ -26,21 +26,8 @@ func SearchPath() string {
 	return filepath.Join(udocsRootDir(), "/var/deploy/search")
 }
 
-func StaticPath() string {
-	return filepath.Join(udocsRootDir(), "static")
-}
-
 func ConfPath() string {
 	return filepath.Join(udocsRootDir(), "udocs.conf")
-}
-
-func TemplatePath() string {
-	return "../static/templates"
-}
-
-func TestingTemplatePath() string {
-	pwd, _ := os.Getwd()
-	return filepath.Join(pwd, "/static/templates")
 }
 
 func userHomeDir() string {
