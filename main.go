@@ -14,7 +14,6 @@ func main() {
 		cmd.Destroy(),
 		cmd.Env(),
 		cmd.Publish(),
-		cmd.Pull(),
 		cmd.Serve(),
 		cmd.Tar(),
 		cmd.Validate(),

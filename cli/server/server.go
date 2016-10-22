@@ -99,25 +99,9 @@ func (s *Server) registerEndpoints() {
 	s.Handle(http.MethodGet, "/:route", s.pageHandler)
 	s.Handle(http.MethodGet, "/:route/*", s.pageHandler)
 	s.Handle(http.MethodGet, "/blob/:route/:thread/:id", s.quipBlobHandler)
-
 	s.Handle(http.MethodPost, "/api/:route", s.updateHandler)
 	s.Handle(http.MethodDelete, "/api/:route", s.destroyHandler)
-	s.Handle(http.MethodPost, "/api/:project/:repo", s.repoHandler)
 	s.Handle(http.MethodGet, "/search", s.searchHandler)
-}
-
-func (s *Server) Seed() error {
-	for _, resource := range s.settings.Seed {
-		tokens := strings.Split(resource, "/")
-		if len(tokens) != 2 {
-			return fmt.Errorf("server.seedDocs: failed to parse seed %q", resource)
-		}
-		if err := udocs.GitArchive(tokens[0], tokens[1], s.dao); err != nil {
-			log.Printf("server.seedDocs: failed to pull %q: %v\nMake sure that the repository exists and that you added the ssh key to it.\n", resource, err)
-		}
-	}
-
-	return nil
 }
 
 func parseHostURL(url string) (string, string) {
@@ -172,6 +156,6 @@ func defaultTemplateParams(settings config.Settings) map[string]interface{} {
 	m["organization"] = settings.Organization
 	m["email"] = settings.Email
 	m["search_placeholder"] = settings.SearchPlaceholder
-	m["logo"] = settings.LogoURL
+	m["color"] = settings.PrimaryColor
 	return m
 }

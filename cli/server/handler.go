@@ -82,13 +82,6 @@ func (s *Server) quipBlobHandler(ctx context.Context, w http.ResponseWriter, r *
 
 func (s *Server) updateHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	route := ctx.Value("route").(string)
-
-	if repo := r.URL.Query().Get("repo"); repo != "" {
-		ctx = context.WithValue(ctx, "repo", repo)
-		s.repoHandler(ctx, w, r)
-		return
-	}
-
 	dest := filepath.Join(udocs.BuildPath(), fmt.Sprintf("%s_%d", route, time.Now().Unix()))
 
 	docs, err := extractTarball(r.Body, dest)
@@ -156,18 +149,6 @@ func (s *Server) searchHandler(ctx context.Context, w http.ResponseWriter, r *ht
 	logResponse(http.StatusOK, r)
 }
 
-func (s *Server) repoHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	project := ctx.Value("project").(string)
-	repo := ctx.Value("repo").(string)
-
-	if err := udocs.GitArchive(project, repo, s.dao); err != nil {
-		logAndWriteError(w, r, http.StatusBadRequest, "server.repoHandler failed to archive remote Git repo docs", err)
-		return
-	}
-
-	logAndWriteJSONResponse(w, r, http.StatusCreated, http.StatusText(http.StatusCreated), r.URL.String())
-}
-
 func extractTarball(rc io.ReadCloser, dest string) (string, error) {
 	dir := filepath.Join(udocs.ArchivePath(), filepath.Base(dest))
 	os.MkdirAll(dir, 0755)
@@ -210,6 +191,8 @@ func writeBinaryResponse(w http.ResponseWriter, r *http.Request, code int, data 
 		w.Header().Set("content-type", "text/javascript")
 	} else if strings.HasSuffix(r.URL.Path, "html") {
 		w.Header().Set("content-type", "text/html")
+	} else if strings.HasSuffix(r.URL.Path, ".css.map") {
+		w.Header().Set("content-type", "text/css")
 	}
 	w.WriteHeader(code)
 	w.Write(data)

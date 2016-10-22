@@ -9,11 +9,23 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-	<title>UDocs</title>
+	<title>Docs</title>
 
 	<link rel="stylesheet" href="/static/styles/bootstrap.min.css">
 	<link rel="stylesheet" href="/static/styles/prism.css">
 	<link rel="stylesheet" href="/static/styles/app.css">
+
+	<style>
+		{{if .Params.color}}
+		h1,
+		#brand {
+			color: {{.Params.color}};
+		}
+		.navbar-fixed-top {
+  			border-top: 4px solid {{.Params.color}};
+		}
+		{{end}}
+	</style>
 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i" rel="stylesheet">

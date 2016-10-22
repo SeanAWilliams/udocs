@@ -22,8 +22,8 @@ type Settings struct {
 	Routes            []string
 	Seed              []string
 	MongoURL          string
-	LogoURL           string
 	QuipAccessToken   string
+	PrimaryColor      string
 }
 
 func LoadSettings() Settings {
@@ -39,6 +39,7 @@ func DefaultSettings() Settings {
 		SearchPlaceholder: "Search",
 		Routes:            []string{},
 		Seed:              []string{},
+		PrimaryColor:      "#5ca616",
 	}
 }
 
@@ -52,8 +53,8 @@ func (s Settings) String() string {
 	buf.WriteString("\nUDOCS_ROUTES=" + sliceToString(s.Routes))
 	buf.WriteString("\nUDOCS_SEED=" + sliceToString(s.Seed))
 	buf.WriteString("\nUDOCS_MONGO_URL=" + s.MongoURL)
-	buf.WriteString("\nUDOCS_LOGO_URL=" + s.LogoURL)
 	buf.WriteString("\nUDOCS_QUIP_ACCESS_TOKEN=" + s.QuipAccessToken)
+	buf.WriteString("\nUDOCS_PRIMARY_COLOR=" + s.PrimaryColor)
 	return buf.String()
 }
 
@@ -70,8 +71,8 @@ func EnvVars(settings Settings) Settings {
 		Routes:            strings.Split(loadEnvVar("UDOCS_ROUTES", sliceToString(settings.Routes)), ","),
 		Seed:              strings.Split(loadEnvVar("UDOCS_SEED", sliceToString(settings.Seed)), ","),
 		MongoURL:          loadEnvVar("UDOCS_MONGO_URL", settings.MongoURL),
-		LogoURL:           loadEnvVar("UDOCS_LOGO_URL", settings.LogoURL),
 		QuipAccessToken:   loadEnvVar("UDOCS_QUIP_ACCESS_TOKEN", settings.QuipAccessToken),
+		PrimaryColor:      loadEnvVar("UDOCS_PRIMARY_COLOR", settings.PrimaryColor),
 	}
 }
 
@@ -106,6 +107,7 @@ func loadFromMap(m map[string]string) Settings {
 		Seed:              strings.Split(m["UDOCS_SEED"], ","),
 		MongoURL:          m["UDOCS_MONGO_URL"],
 		QuipAccessToken:   m["UDOCS_QUIP_ACCESS_TOKEN"],
+		PrimaryColor:      m["UDOCS_PRIMARY_COLOR"],
 	}
 }
 

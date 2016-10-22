@@ -11,8 +11,8 @@ import (
 )
 
 var (
-	dir, git       string
-	headless, seed bool
+	dir, git string
+	headless bool
 )
 
 func setFlag(cmd *cobra.Command, flag string) {
@@ -23,8 +23,6 @@ func setFlag(cmd *cobra.Command, flag string) {
 		cmd.Flags().StringVarP(&git, "git", "g", "", "Git repository from which to pull docs from (i.e. <project>/<repo>)")
 	case "headless":
 		cmd.Flags().BoolVar(&headless, "headless", false, "Run UDocs server in headless mode")
-	case "seed":
-		cmd.Flags().BoolVar(&seed, "seed", false, "Seed the UDocs server with remote Git repos ($UDOCS_SEED)")
 	default:
 		panic("command.setFlag: unrecognized flag --" + flag)
 	}

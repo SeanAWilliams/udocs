@@ -4,19 +4,15 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/mholt/archiver"
 	"github.com/ultimatesoftware/udocs/cli/storage"
 )
 
@@ -235,41 +231,6 @@ func UpdateSearchIndex(summary Summary, dao storage.Dao) error {
 		return nil
 	}
 	return walk(summary.Pages)
-}
-
-func GitArchive(project, repo string, dao storage.Dao) error {
-	version := fmt.Sprintf("%s_%s_%d", project, repo, time.Now().Unix())
-	archiveFilePath := filepath.Join(ArchivePath(), version) + ".zip"
-
-	gitArchiveCmdFormatter := `archive --format=zip --output=%s --verbose --remote=ssh://git@devgit.dev.us.corp:7999/%s/%s.git master -- docs`
-	gitCmd := fmt.Sprintf(gitArchiveCmdFormatter, archiveFilePath, project, repo)
-	if err := exec.Command("git", strings.Split(gitCmd, " ")...).Run(); err != nil {
-		return err
-	}
-
-	buildFilePath := filepath.Join(BuildPath(), version)
-	os.MkdirAll(buildFilePath, 0750)
-	if err := archiver.Zip.Open(archiveFilePath, buildFilePath); err != nil {
-		return err
-	}
-
-	dir := filepath.Join(buildFilePath, "docs")
-	summary, err := os.Open(filepath.Join(dir, SUMMARY_MD))
-	if err != nil {
-		return err
-	}
-	defer summary.Close()
-
-	route := ExtractRoute(summary)
-	if route == "" {
-		return errors.New("udocs.GitArchive: failed to parse route from H1 header in SUMMARY.md")
-	}
-
-	if err := Build(route, dir, dao); err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func getPageID(route, path string) string {

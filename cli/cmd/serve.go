@@ -74,7 +74,6 @@ func Serve() *cobra.Command {
 
 	setFlag(serve, "dir")
 	setFlag(serve, "headless")
-	setFlag(serve, "seed")
 	return serve
 }
 

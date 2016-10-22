@@ -16,8 +16,6 @@
 - update to newer version of treemux, and utilize Context features
 - implement default index.html, and support for generating one
 - SUMMARY.md should support absolute paths, and URL paths, to markdown files
-- Make the primary color (green, currently) configurable
 - Add a single-repo view for the sidebar that will default expand the sidebar if only a single docs directory is being hosted
 - Add a README gif showing the CLI in-action
-- Make the Git SSH key configurable
 - Implement '-v, --verbose' flags that enable log output. By default, it should be off (which it currently is not)

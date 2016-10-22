@@ -17,6 +17,8 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 - Live-reloading of UDocs server when making local document changes 
 - MongoDB compatible 
 - Single binary
+- Quip document support (beta)
+- Customizable primary color
 
 --- 
 
@@ -61,7 +63,6 @@ Available Commands:
   destroy     Destroy a docs directory from a remote UDocs server
   env         Show UDocs local environment information
   publish     Publish docs to a remote UDocs host
-  pull        Pull docs from remote Git repository
   serve       Renders docs directories, and serves them locally over HTTP
   tar         Tar a docs directory
   validate    Validate a docs directory
@@ -83,6 +84,8 @@ Use "udocs [command] --help" for more information about a command.
 - `UDOCS_ORGANIZATION`
 - `UDOCS_SEARCH_PLACEHOLDER`
 - `UDOCS_MONGO_URL`
+- `UDOCS_QUIP_ACCESS_TOKEN`
+- `UDOCS_PRIMARY_COLOR`
 
 Executing `udocs env` will output the state of your current, local environment.
 
