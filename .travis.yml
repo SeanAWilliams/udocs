@@ -3,4 +3,11 @@ go:
   - 1.6
   - 1.7
 
-script: godep go test -v ./cli/...
+before_install:
+ - go get github.com/tools/godep
+
+install:
+ - godep restore
+
+script: 
+  - go test -v ./cli/...
