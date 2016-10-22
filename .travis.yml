@@ -6,8 +6,5 @@ go:
 before_install:
  - go get github.com/tools/godep
 
-install:
- - godep restore
-
 script: 
   - go test -v ./cli/...
