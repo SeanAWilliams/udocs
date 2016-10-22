@@ -36,13 +36,9 @@ func DefaultSettings() Settings {
 		EntryPoint:        "http://localhost",
 		BindAddr:          "0.0.0.0",
 		Port:              "9554",
-		RootRoute:         "/home",
-		Organization:      "",
-		Email:             "user@email.com",
-		SearchPlaceholder: "Search UDocs",
+		SearchPlaceholder: "Search",
 		Routes:            []string{},
 		Seed:              []string{},
-		MongoURL:          "",
 	}
 }
 
