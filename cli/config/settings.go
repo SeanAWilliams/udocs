@@ -91,7 +91,7 @@ func loadEnvVar(key, defaultValue string) string {
 func Conf() Settings {
 	f, err := os.Open(udocs.ConfPath())
 	if err != nil {
-		return EnvVars(Settings{})
+		return EnvVars(DefaultSettings())
 	}
 	defer f.Close()
 	return loadFromMap(toMap(f))

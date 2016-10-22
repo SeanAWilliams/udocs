@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/dimfeld/httptreemux"
@@ -39,9 +38,9 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 
 	tmpl := udocs.MustParseTemplate(defaultTemplateParams(*settings), udocs.DefaultTemplateFiles()...)
 
-	if err := os.Symlink(udocs.StaticPath(), filepath.Join(udocs.DeployPath(), "static")); err != nil && os.IsNotExist(err) {
-		log.Fatalf("server.New: failed to symlink static directory: %v", err)
-	}
+	// if err := os.Symlink(udocs.StaticPath(), filepath.Join(udocs.DeployPath(), "static")); err != nil && os.IsNotExist(err) {
+	// 	log.Fatalf("server.New: failed to symlink static directory: %v", err)
+	// }
 
 	scheme, host := parseHostURL(settings.EntryPoint)
 
@@ -50,13 +49,13 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 	}
 
 	s := &Server{
-		treeMux:    httptreemux.New(),
-		fileServer: http.FileServer(http.Dir(udocs.DeployPath())),
-		settings:   *settings,
-		dao:        dao,
-		tmpl:       tmpl,
-		scheme:     scheme,
-		host:       host,
+		treeMux: httptreemux.New(),
+		// fileServer: udocs.StaticHandler,
+		settings: *settings,
+		dao:      dao,
+		tmpl:     tmpl,
+		scheme:   scheme,
+		host:     host,
 	}
 
 	s.registerEndpoints()
@@ -64,9 +63,15 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 }
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// use file-server to serve static pages (fonts, stylesheets, scripts, etc.)
+	// // use file-server to serve static pages (fonts, stylesheets, scripts, etc.)
 	if strings.HasPrefix(r.URL.Path, "/static") {
-		s.fileServer.ServeHTTP(w, r)
+		data, err := udocs.FetchAsset("cli/udocs" + r.URL.Path)
+		if err != nil {
+			logAndWriteError(w, r, http.StatusNotFound, "asset was not found: "+r.URL.Path, err)
+			return
+		}
+
+		logAndWriteBinaryResponse(w, r, http.StatusOK, data)
 		return
 	}
 
@@ -91,6 +96,7 @@ func (s *Server) Handle(method, path string, h ContextHandlerFunc) {
 
 func (s *Server) registerEndpoints() {
 	s.Handle(http.MethodGet, "/", s.reverseProxyHandler)
+	// s.Handle(http.MethodGet, "/static", s.staticHandler)
 	s.Handle(http.MethodGet, "/:route", s.pageHandler)
 	s.Handle(http.MethodGet, "/:route/*", s.pageHandler)
 	s.Handle(http.MethodPost, "/api/:route", s.updateHandler)

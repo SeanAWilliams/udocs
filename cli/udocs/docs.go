@@ -15,9 +15,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/mholt/archiver"
 	"github.com/ultimatesoftware/udocs/cli/storage"
-	"gopkg.in/fsnotify.v1"
 )
 
 const (
@@ -26,6 +26,8 @@ const (
 	SIDEBAR_JSON = "sidebar.json"
 	INDEX_HTML   = "index.html"
 )
+
+var FetchAsset func(string) ([]byte, error)
 
 // Validate validates the the given docs directory meets the format required by UDocs.
 // Specifically, the directory must exist, be named "docs" , and include both a README.md and SUMMARY.md file at the root of the directory.
