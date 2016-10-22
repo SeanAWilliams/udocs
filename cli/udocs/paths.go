@@ -27,7 +27,7 @@ func SearchPath() string {
 }
 
 func StaticPath() string {
-	return filepath.Join(udocsRootDir(), "cli/udocs/static")
+	return filepath.Join(udocsRootDir(), "static")
 }
 
 func ConfPath() string {
@@ -35,7 +35,12 @@ func ConfPath() string {
 }
 
 func TemplatePath() string {
-	return "cli/udocs/static/templates"
+	return "../static/templates"
+}
+
+func TestingTemplatePath() string {
+	pwd, _ := os.Getwd()
+	return filepath.Join(pwd, "/static/templates")
 }
 
 func userHomeDir() string {

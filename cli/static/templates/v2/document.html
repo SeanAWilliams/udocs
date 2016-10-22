@@ -1,0 +1,21 @@
+{{define "document"}}
+<!DOCTYPE html>
+<html lang="en">
+{{template "header" .}}
+
+<body>
+	{{template "navbar" .}}
+	<div class="container-fluid">
+		<div id="parent" class="row">
+			{{template "sidebar" .}}
+			<div id="inner" class="col-sm-9 col-md-10 main">{{template "inner" .}}</div>
+		</div>
+	</div>
+	<script src='/static/scripts/jquery-3.1.1.min.js'></script>
+	<script src='/static/scripts/bootstrap.min.js'></script>
+	<script src='/static/scripts/app.js'></script>
+	<script src="/static/scripts/prism.js"></script>
+</body>
+
+</html>
+{{end}}

@@ -1,16 +1,12 @@
 package main
 
-import (
-	"github.com/ultimatesoftware/udocs/cli/cmd"
-	"github.com/ultimatesoftware/udocs/cli/udocs"
-)
+import "github.com/ultimatesoftware/udocs/cli/cmd"
 
 // buildNumber is set via -ldflags
 var buildNumber string
 
 func main() {
 	cmd.BuildNumber = buildNumber
-	udocs.FetchAsset = Asset
 	// commands MUST be in alphabetical order
 	cmd.Root.AddCommand(
 		cmd.Build(),

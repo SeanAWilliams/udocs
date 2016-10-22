@@ -56,7 +56,15 @@ func (t *Template) ExecuteTemplate(w io.Writer, name string, b []byte) error {
 	return nil
 }
 
-func DefaultTemplateFiles() []string {
+func DefaultTemplateFiles(abs bool) []string {
+	if abs {
+		var tmpls []string
+		for i, t := range defaultTemplateFiles {
+			tmpls = append(tmpls, filepath.Join("static", t))
+			fmt.Println(tmpls[i])
+		}
+		return tmpls
+	}
 	return defaultTemplateFiles
 }
 

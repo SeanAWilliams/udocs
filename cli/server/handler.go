@@ -209,7 +209,7 @@ func extractTarball(rc io.ReadCloser, dest string) (string, error) {
 		return "", fmt.Errorf("api.extractTarball failed to make dest directory: %v", err)
 	}
 
-	if err := archiver.UntarGz(tarball, dest); err != nil {
+	if err := archiver.TarGz.Open(tarball, dest); err != nil {
 		return "", fmt.Errorf("api.extractTarball failed to gunzip src tar file: %v", err)
 	}
 

@@ -29,6 +29,10 @@ const (
 
 var FetchAsset func(string) ([]byte, error)
 
+func init() {
+	FetchAsset = Asset
+}
+
 // Validate validates the the given docs directory meets the format required by UDocs.
 // Specifically, the directory must exist, be named "docs" , and include both a README.md and SUMMARY.md file at the root of the directory.
 func Validate(dir string) error {
@@ -242,7 +246,7 @@ func GitArchive(project, repo string, dao storage.Dao) error {
 
 	buildFilePath := filepath.Join(BuildPath(), version)
 	os.MkdirAll(buildFilePath, 0750)
-	if err := archiver.Unzip(archiveFilePath, buildFilePath); err != nil {
+	if err := archiver.Zip.Open(archiveFilePath, buildFilePath); err != nil {
 		return err
 	}
 

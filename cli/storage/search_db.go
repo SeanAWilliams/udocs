@@ -11,11 +11,12 @@ import (
 	"strconv"
 
 	"github.com/blevesearch/bleve"
+	"github.com/blevesearch/bleve/mapping"
 )
 
 type SearchDB struct {
 	Path string
-	*bleve.IndexMapping
+	mapping.IndexMapping
 	bleve.Index
 }
 
@@ -43,7 +44,7 @@ func NewSearchDB(dir string) *SearchDB {
 	}
 }
 
-func buildIndexMapping() *bleve.IndexMapping {
+func buildIndexMapping() mapping.IndexMapping {
 	textFieldAnalyzer := "en"
 	pageMapping := bleve.NewDocumentMapping()
 

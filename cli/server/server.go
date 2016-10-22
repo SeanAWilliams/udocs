@@ -23,6 +23,7 @@ type Server struct {
 	tmpl       *udocs.Template
 	scheme     string
 	host       string
+	StaticPath string
 }
 
 var BaseDirs = []string{
@@ -31,12 +32,14 @@ var BaseDirs = []string{
 	udocs.DeployPath(),
 }
 
+var Tmpls = udocs.DefaultTemplateFiles(true)
+
 func New(settings *config.Settings, dao storage.Dao) *Server {
 	if err := createBaseDirs(); err != nil {
 		log.Fatalf("server.New: failed to create base directories: %v", err)
 	}
 
-	tmpl := udocs.MustParseTemplate(defaultTemplateParams(*settings), udocs.DefaultTemplateFiles()...)
+	tmpl := udocs.MustParseTemplate(defaultTemplateParams(*settings), Tmpls...)
 
 	// if err := os.Symlink(udocs.StaticPath(), filepath.Join(udocs.DeployPath(), "static")); err != nil && os.IsNotExist(err) {
 	// 	log.Fatalf("server.New: failed to symlink static directory: %v", err)
@@ -51,11 +54,12 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 	s := &Server{
 		treeMux: httptreemux.New(),
 		// fileServer: udocs.StaticHandler,
-		settings: *settings,
-		dao:      dao,
-		tmpl:     tmpl,
-		scheme:   scheme,
-		host:     host,
+		settings:   *settings,
+		dao:        dao,
+		tmpl:       tmpl,
+		scheme:     scheme,
+		host:       host,
+		StaticPath: "static",
 	}
 
 	s.registerEndpoints()
@@ -65,7 +69,7 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// // use file-server to serve static pages (fonts, stylesheets, scripts, etc.)
 	if strings.HasPrefix(r.URL.Path, "/static") {
-		data, err := udocs.FetchAsset("cli/udocs" + r.URL.Path)
+		data, err := udocs.FetchAsset(".." + r.URL.Path)
 		if err != nil {
 			logAndWriteError(w, r, http.StatusNotFound, "asset was not found: "+r.URL.Path, err)
 			return
