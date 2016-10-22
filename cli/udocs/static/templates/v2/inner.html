@@ -1,0 +1,18 @@
+{{define "inner"}}
+<!--<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">-->
+   <!--<div class="col-sm-9 col-md-10 main">-->
+<!--<div id="inner">-->
+    <!--<div class ="content">-->
+        {{.Content}}
+        <br>
+        <hr/>
+        {{if .Params.repo}}
+        <h4 style="text-align: center;">
+            <a href='{{.Params.repo}}' rel="nofollow">
+                <i class="fa fa-code"></i> View the source for this page in Stash <i class="fa fa-code"></i>
+            </a>
+        </h4>
+        {{end}}
+    <!--</div>-->
+<!--</div>-->
+{{end}}
