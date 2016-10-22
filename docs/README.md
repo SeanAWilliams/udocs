@@ -1,5 +1,4 @@
-UDocs [![Build Status](https://travis-ci.org/UltimateSoftware/udocs.svg?branch=master)](https://travis-ci.org/UltimateSoftware/udocs)
-===
+# UDocs
 
 `udocs` is a simple CLI that lets developers easily build, deploy, and publish their application's documentation
 guides.

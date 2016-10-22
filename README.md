@@ -1,4 +1,5 @@
-# UDocs
+UDocs [![Build Status](https://travis-ci.org/UltimateSoftware/udocs.svg?branch=master)](https://travis-ci.org/UltimateSoftware/udocs)
+===
 
 `udocs` is a Go CLI that lets developers easily build, deploy, and publish their app's documentation
 guide. Documentation content is written in Markdown, and persisted in a `docs/` directory at the root of your project's Git repository.
