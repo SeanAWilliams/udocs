@@ -40,7 +40,7 @@ func TestHandle(t *testing.T) {
 
 	w := bytes.NewBuffer([]byte{})
 	tmpl := server.tmpl.WithParameter("sidebar", []udocs.Summary{udocs.Summary{}})
-	if err := tmpl.ExecuteTemplate(w, "document", testData); err != nil {
+	if err := tmpl.Execute(w, "document", testData); err != nil {
 		t.Fatalf("failed to execute template: %v", err)
 	}
 

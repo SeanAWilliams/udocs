@@ -20,6 +20,8 @@ import (
 	"github.com/ultimatesoftware/udocs/cli/storage"
 )
 
+var innerHTMLTemplate = MustParseTemplate(nil, "inner.html")
+
 const (
 	README_MD    = "README.md"
 	SUMMARY_MD   = "SUMMARY.md"
@@ -99,6 +101,13 @@ func Build(route, dir string, dao storage.Dao) error {
 			if err != nil {
 				return err
 			}
+
+			buf := new(bytes.Buffer)
+			if err := innerHTMLTemplate.Execute(buf, "inner", data); err != nil {
+				return err
+			}
+			data = buf.Bytes()
+
 			id = getHTMLPath("/", route, path[len(abs):])
 		} else {
 			id = filepath.Join("/", route, path[len(abs):])

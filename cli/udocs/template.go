@@ -73,7 +73,7 @@ func (t *Template) WithParameter(k string, v interface{}) *Template {
 	return t
 }
 
-func (t *Template) ExecuteTemplate(w io.Writer, name string, b []byte) error {
+func (t *Template) Execute(w io.Writer, name string, b []byte) error {
 	html := template.HTML(string(b))
 	data := struct {
 		Content *template.HTML

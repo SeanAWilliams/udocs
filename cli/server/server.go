@@ -72,7 +72,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		logAndWriteBinaryResponse(w, r, http.StatusOK, data)
+		writeBinaryResponse(w, r, http.StatusOK, data)
 		return
 	}
 
@@ -96,9 +96,10 @@ func (s *Server) Handle(method, path string, h ContextHandlerFunc) {
 
 func (s *Server) registerEndpoints() {
 	s.Handle(http.MethodGet, "/", s.reverseProxyHandler)
-	// s.Handle(http.MethodGet, "/static", s.staticHandler)
 	s.Handle(http.MethodGet, "/:route", s.pageHandler)
 	s.Handle(http.MethodGet, "/:route/*", s.pageHandler)
+	s.Handle(http.MethodGet, "/blob/:route/:thread/:id", s.quipBlobHandler)
+
 	s.Handle(http.MethodPost, "/api/:route", s.updateHandler)
 	s.Handle(http.MethodDelete, "/api/:route", s.destroyHandler)
 	s.Handle(http.MethodPost, "/api/:project/:repo", s.repoHandler)

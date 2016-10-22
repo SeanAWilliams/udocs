@@ -33,72 +33,51 @@ func (s *Server) reverseProxyHandler(ctx context.Context, w http.ResponseWriter,
 	httputil.NewSingleHostReverseProxy(rootURL).ServeHTTP(w, r)
 }
 
-// func (s *Server) staticHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-// 	data, err := udocs.FetchAsset("cli/udocs" + r.URL.Path)
-// 	if err != nil {
-// 		logAndWriteError(w, r, http.StatusNotFound, "asset was not found: "+r.URL.Path, err)
-// 		return
-// 	}
-// 	logAndWriteBinaryResponse(w, r, http.StatusOK, data)
-// }
-
 func (s *Server) pageHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	// if strings.HasPrefix(r.URL.Path, "/static/") {
-	// 	s.staticHandler(ctx, w, r)
-	// 	return
-	// }
-
-	if udocs.IsQuipBlob(r.URL.Path) {
-		paths := strings.Split(r.URL.Path, "/")
-		if len(paths) != 4 {
-			logAndWriteError(w, r, http.StatusNotFound, "server.pageHandler unable to parse Quip blob path: "+r.URL.Path, nil)
-			return
-
-		}
-		blob, err := udocs.DefaultQuipClient.GetBlob(paths[2], paths[3])
-		if err != nil {
-			logAndWriteError(w, r, http.StatusNotFound, "server.pageHandler unable to get Quip blob", err)
-		}
-		logAndWriteBinaryResponse(w, r, http.StatusOK, blob)
+	data, err := s.dao.Fetch(r.URL.Path)
+	if err != nil {
+		logAndWriteError(w, r, http.StatusNotFound, "unable to fetch data", err)
 		return
-
 	}
 
-	if ext := filepath.Ext(r.URL.Path); ext != "" && ext != ".html" && !udocs.IsQuipThread(r.URL.Path) {
-		// assume URI is binary data (e.g. json, png, jpeg, etc.), so we just write its content
-		data, err := s.dao.Fetch(r.URL.Path)
-		if err != nil {
-			logAndWriteError(w, r, http.StatusNotFound, "server.pageHandler unable to fetch binary data", err)
-			return
-		}
+	if r.URL.Query().Get("ajax") == "true" {
 		logAndWriteBinaryResponse(w, r, http.StatusOK, data)
 		return
 	}
 
-	data, err := s.dao.Fetch(r.URL.Path)
-	if err != nil {
-		logAndWriteError(w, r, http.StatusNotFound, "server.pageHandler unable to fetch html data", err)
+	if ext := filepath.Ext(r.URL.Path); ext != ".html" && ext != ".quip" {
+		logAndWriteBinaryResponse(w, r, http.StatusOK, data)
 		return
 	}
 
 	sidebar, err := udocs.LoadSidebar(s.dao)
 	if err != nil {
-		logAndWriteError(w, r, http.StatusInternalServerError, "server.pageHandler failed to load sidebar", err)
+		logAndWriteError(w, r, http.StatusInternalServerError, "failed to load sidebar", err)
 		return
 	}
 
-	name := "document"
-	if r.URL.Query().Get("ajax") == "true" {
-		name = "inner"
-	}
-
-	tmpl := s.tmpl.WithParameter("sidebar", sidebar)
-	if err := tmpl.ExecuteTemplate(w, name, data); err != nil {
-		logAndWriteError(w, r, http.StatusInternalServerError, "server.pageHandler failed to execute html template", err)
+	if err := s.tmpl.WithParameter("sidebar", sidebar).Execute(w, "document", data); err != nil {
+		logAndWriteError(w, r, http.StatusInternalServerError, "failed to execute html template", err)
 		return
 	}
 
 	logResponse(http.StatusOK, r)
+	return
+
+}
+
+func (s *Server) quipBlobHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	thread := ctx.Value("thread").(string)
+	id := ctx.Value("id").(string)
+
+	blob, err := udocs.DefaultQuipClient.GetBlob(thread, id)
+	if err != nil {
+		logAndWriteError(w, r, http.StatusNotFound, "unable to get Quip blob", err)
+		return
+	}
+
+	logAndWriteBinaryResponse(w, r, http.StatusOK, blob)
+	return
 }
 
 func (s *Server) updateHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -169,7 +148,7 @@ func (s *Server) searchHandler(ctx context.Context, w http.ResponseWriter, r *ht
 	}
 
 	tmpl := s.tmpl.WithParameter("query_result", queryResult).WithParameter("sidebar", sidebar)
-	if err := tmpl.ExecuteTemplate(w, "search", nil); err != nil {
+	if err := tmpl.Execute(w, "search", nil); err != nil {
 		logAndWriteError(w, r, http.StatusInternalServerError, "server.pageHandler failed to execute template", err)
 		return
 	}
@@ -224,18 +203,20 @@ func generalizeStringMap(m map[string]string) map[string]interface{} {
 	return generalized
 }
 
-func logAndWriteBinaryResponse(w http.ResponseWriter, r *http.Request, code int, data []byte) {
-	if ext := filepath.Ext(r.URL.Path); ext == ".css" || ext == ".min.css" {
-		fmt.Println(r.URL.Path)
+func writeBinaryResponse(w http.ResponseWriter, r *http.Request, code int, data []byte) {
+	if strings.HasSuffix(r.URL.Path, "css") {
 		w.Header().Set("content-type", "text/css")
-	}
-	if ext := filepath.Ext(r.URL.Path); ext == ".js" || ext == ".min.js" {
-		fmt.Println(r.URL.Path)
+	} else if strings.HasSuffix(r.URL.Path, "js") {
 		w.Header().Set("content-type", "text/javascript")
+	} else if strings.HasSuffix(r.URL.Path, "html") {
+		w.Header().Set("content-type", "text/html")
 	}
 	w.WriteHeader(code)
-
 	w.Write(data)
+}
+
+func logAndWriteBinaryResponse(w http.ResponseWriter, r *http.Request, code int, data []byte) {
+	writeBinaryResponse(w, r, code, data)
 	logResponse(code, r)
 }
 
