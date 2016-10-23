@@ -2,16 +2,19 @@ language: go
 go:
 - 1.6
 - 1.7
-
 skip_cleanup: true
-
 before_install:
 - go get github.com/tools/godep
-
 script:
 - go test -v ./cli/...
-- CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -a -installsuffix cgo -o bin/udocs -ldflags "-X main.buildNumber=v0.1.0"
-
+- CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -a -installsuffix cgo -o bin/udocs -ldflags "-X main.buildNumber=v0.1.$TRAVIS_BUILD_NUMBER"
+before_deploy:
+- git config --global user.email "builds@travis-ci.com"
+- git config --global user.name "Travis CI"
+- export GIT_TAG=v0.1.$TRAVIS_BUILD_NUMBER
+- git tag $GIT_TAG -a -m "[TravisCI] Tagged new release for build $TRAVIS_BUILD_NUMBER"
+- git push -q https://$GITHUB_TOKEN@github.com/UltimateSoftware/udocs --tags
+- ls -R
 deploy:
   provider: releases
   api_key:
@@ -19,3 +22,6 @@ deploy:
   file: bin/udocs
   on:
     tags: true
+env:
+  global:
+    secure: uV5ZSIvncdi4ccM5A88phUoDwV77hxYGZedUsf4x5AjaNdzdQ4TiqlxMYQd4rejW1RAGdScycM/+gVdwjqMQHiflS8q+wGaARbzgR1c9SjohU13ld3fVFlwngx9e+w6lIJcsNd5hz9w76rZEmATvlM5TKBYeD/F4qXHpigPAGSPKFQYcdqsdLwtLEslIlHlECdXypojKOOnq4vjdMOzLGUriqv9ZA7S7eeDQPp3CAu7uWVKg0+IVXp5Qa8VQciZZY3Jgw2kDtS0WeLGXnc1eiwypKTAxZDnHPTLAG8ZOBdvHLeby57SNz2XihBbUm7Z30uwa39cmu5WPVTFM1ba4FnX8ClpicPGIE5kHdHczP6k1Y9tKVGGMmwpz1Dh97LRjExkL2vO/fwV5frYULtiDG5Sz9hnyeVJHNejMAXizHsUzpxnE/QVKjNHNX48j8qkd8Bwys8ujRBRkRRZ7kktoUBAcdd5H3GQWAG5Oh9MbZ+kRj/hLN3/J4jg9c2EREi6xOfda+6TuTNEZMdUNXE7hzY7f/YHXv7swlCiq7XXAq6qjudxmmufeNh6+LdkdGpj3xh62XLTrYSpxfi5PNadPg0CAANxI+0c/KUYPlnI2lyUvIUIaL0ncrGA/W/Cju4V/4uGvgC6dVUlxeKDv85p8bxagUlBt+w4mc8XK5sqtBUQ=

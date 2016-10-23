@@ -6,10 +6,10 @@
 
 - make default template dir overridable
 - anchor tag goto is about 50 px's off
-- running udocs serve -d <dir>, where dir is not docs dir, gives weird error message
 - handler tests... all of them
 - Encapsulate mutatation of settings and instead use env vars, for dynamic restaging, and then just log when you do it (for transparency)
 - Make error messages less stack-based, and more human-readable
+- mobile view collpases sidebar and search out of view
 
 ### Features
 
