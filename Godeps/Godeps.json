@@ -1,10 +1,7 @@
 {
 	"ImportPath": "github.com/ultimatesoftware/udocs",
 	"GoVersion": "go1.7",
-	"GodepVersion": "v62",
-	"Packages": [
-		"./..."
-	],
+	"GodepVersion": "v74",
 	"Deps": [
 		{
 			"ImportPath": "github.com/blevesearch/bleve",
