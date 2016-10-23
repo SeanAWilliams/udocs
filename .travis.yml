@@ -8,11 +8,11 @@ before_install:
 script:
 - go test -v ./cli/...
 - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -a -installsuffix cgo -o bin/udocs -ldflags "-X main.buildNumber=v0.1.$TRAVIS_BUILD_NUMBER"
-before_deploy:
+after_success:
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
-- export GIT_TAG=v0.1.$TRAVIS_BUILD_NUMBER
-- git tag $GIT_TAG -a -m "[TravisCI] Tagged new release for build $TRAVIS_BUILD_NUMBER"
+- export GIT_TAG=v0.1.0-$TRAVIS_BUILD_NUMBER
+- git tag $GIT_TAG -a -m "[ci skip] TravisCI tagged new release for build $TRAVIS_BUILD_NUMBER"
 - git push -q https://$GITHUB_TOKEN@github.com/UltimateSoftware/udocs --tags
 - ls -R
 deploy:
