@@ -26,10 +26,7 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 
 ### Requirements
 
-- Git 2.7+
 - Go 1.7+
-- bash
-- Linux or Mac OS X
 
 ### Clone and build from source
 
