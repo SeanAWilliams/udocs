@@ -12,8 +12,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/UltimateSoftware/udocs/cli/storage"
 	"github.com/fsnotify/fsnotify"
-	"github.com/ultimatesoftware/udocs/cli/storage"
 )
 
 var innerHTMLTemplate = MustParseTemplate(nil, "inner.html")

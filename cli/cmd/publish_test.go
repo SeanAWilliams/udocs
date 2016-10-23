@@ -5,10 +5,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ultimatesoftware/udocs/cli/config"
-	"github.com/ultimatesoftware/udocs/cli/server"
-	"github.com/ultimatesoftware/udocs/cli/storage"
-	"github.com/ultimatesoftware/udocs/cli/udocs"
+	"github.com/UltimateSoftware/udocs/cli/config"
+	"github.com/UltimateSoftware/udocs/cli/server"
+	"github.com/UltimateSoftware/udocs/cli/storage"
+	"github.com/UltimateSoftware/udocs/cli/udocs"
 )
 
 func TestPublish(t *testing.T) {

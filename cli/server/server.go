@@ -8,11 +8,11 @@ import (
 	"os"
 	"strings"
 
+	"github.com/UltimateSoftware/udocs/cli/config"
+	"github.com/UltimateSoftware/udocs/cli/storage"
+	"github.com/UltimateSoftware/udocs/cli/udocs"
+	"github.com/UltimateSoftware/udocs/static"
 	"github.com/dimfeld/httptreemux"
-	"github.com/ultimatesoftware/udocs/cli/config"
-	"github.com/ultimatesoftware/udocs/cli/storage"
-	"github.com/ultimatesoftware/udocs/cli/udocs"
-	"github.com/ultimatesoftware/udocs/static"
 	"golang.org/x/net/context"
 )
 

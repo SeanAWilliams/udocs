@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/UltimateSoftware/udocs/cli/storage"
+	"github.com/UltimateSoftware/udocs/cli/udocs"
 	"github.com/spf13/cobra"
-	"github.com/ultimatesoftware/udocs/cli/storage"
-	"github.com/ultimatesoftware/udocs/cli/udocs"
 )
 
 func Build() *cobra.Command {

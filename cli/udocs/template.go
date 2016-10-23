@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/ultimatesoftware/udocs/static"
+	"github.com/UltimateSoftware/udocs/static"
 )
 
 var (

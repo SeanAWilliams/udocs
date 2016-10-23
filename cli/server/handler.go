@@ -13,8 +13,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/UltimateSoftware/udocs/cli/udocs"
 	"github.com/mholt/archiver"
-	"github.com/ultimatesoftware/udocs/cli/udocs"
 	"golang.org/x/net/context"
 )
 

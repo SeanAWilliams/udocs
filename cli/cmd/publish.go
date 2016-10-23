@@ -8,10 +8,10 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/UltimateSoftware/udocs/cli/config"
+	"github.com/UltimateSoftware/udocs/cli/udocs"
 	"github.com/mholt/archiver"
 	"github.com/spf13/cobra"
-	"github.com/ultimatesoftware/udocs/cli/config"
-	"github.com/ultimatesoftware/udocs/cli/udocs"
 )
 
 func Publish() *cobra.Command {

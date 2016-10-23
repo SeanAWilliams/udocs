@@ -34,7 +34,7 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 ### Clone and build from source
 
 ```bash
-$ go get -u github.com/ultimatesoftware/udocs
+$ go get -u github.com/UltimateSoftware/udocs
 
 # you can adjust UDocs configuration settings in two ways:
 $ vim ~/.udocs/udocs.conf

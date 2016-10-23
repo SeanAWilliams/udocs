@@ -1,6 +1,6 @@
 package main
 
-import "github.com/ultimatesoftware/udocs/cli/cmd"
+import "github.com/UltimateSoftware/udocs/cli/cmd"
 
 // buildNumber is set via -ldflags
 var buildNumber string

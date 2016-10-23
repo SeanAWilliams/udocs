@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"path/filepath"
 
+	"github.com/UltimateSoftware/udocs/cli/config"
+	"github.com/UltimateSoftware/udocs/cli/server"
+	"github.com/UltimateSoftware/udocs/cli/storage"
+	"github.com/UltimateSoftware/udocs/cli/udocs"
 	"github.com/spf13/cobra"
-	"github.com/ultimatesoftware/udocs/cli/config"
-	"github.com/ultimatesoftware/udocs/cli/server"
-	"github.com/ultimatesoftware/udocs/cli/storage"
-	"github.com/ultimatesoftware/udocs/cli/udocs"
 )
 
 func Serve() *cobra.Command {

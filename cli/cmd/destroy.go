@@ -7,8 +7,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/UltimateSoftware/udocs/cli/config"
 	"github.com/spf13/cobra"
-	"github.com/ultimatesoftware/udocs/cli/config"
 )
 
 func Destroy() *cobra.Command {

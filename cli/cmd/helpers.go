@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/UltimateSoftware/udocs/cli/udocs"
 	"github.com/spf13/cobra"
-	"github.com/ultimatesoftware/udocs/cli/udocs"
 )
 
 var (

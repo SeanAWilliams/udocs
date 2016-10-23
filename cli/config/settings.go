@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ultimatesoftware/udocs/cli/udocs"
+	"github.com/UltimateSoftware/udocs/cli/udocs"
 )
 
 type Settings struct {

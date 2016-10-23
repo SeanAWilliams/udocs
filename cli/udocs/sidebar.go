@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ultimatesoftware/udocs/cli/storage"
+	"github.com/UltimateSoftware/udocs/cli/storage"
 )
 
 type Sidebar []Summary

@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/UltimateSoftware/udocs/cli/config"
 	"github.com/spf13/cobra"
-	"github.com/ultimatesoftware/udocs/cli/config"
 )
 
 func Env() *cobra.Command {

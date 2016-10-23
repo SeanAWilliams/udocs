@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/UltimateSoftware/udocs/cli/udocs"
 	"github.com/spf13/cobra"
-	"github.com/ultimatesoftware/udocs/cli/udocs"
 )
 
 func Validate() *cobra.Command {
