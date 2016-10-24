@@ -1,6 +1,6 @@
 *.db
 _docs
 docs.tar.gz
-bin/
+bin/udocs*
 ci
 udocs
