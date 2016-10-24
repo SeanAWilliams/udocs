@@ -57,6 +57,10 @@ func NewMongoDBDao(connection string, searchDir string) *MongoDBDao {
 	}
 }
 
+func (mongo *MongoDBDao) Drop() error {
+	return mongo.Session.Copy().DB("").DropDatabase()
+}
+
 func (mongo *MongoDBDao) getCollection(name string) (*mgo.Collection, error) {
 	collection := mongo.Session.Copy().DB("").C(name)
 	if err := collection.EnsureIndex(mongo.Idx); err != nil {

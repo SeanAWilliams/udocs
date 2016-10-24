@@ -30,6 +30,9 @@ func (s *Server) reverseProxyHandler(ctx context.Context, w http.ResponseWriter,
 		Host:   s.host + ":" + port,
 		Path:   "/" + s.settings.RootRoute,
 	}
+	if rootURL.Path != "/index.html" {
+		rootURL.Path += "/index.html"
+	}
 	httputil.NewSingleHostReverseProxy(rootURL).ServeHTTP(w, r)
 }
 
