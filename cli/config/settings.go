@@ -50,6 +50,7 @@ func (s Settings) String() string {
 	buf.WriteString("\nUDOCS_ROOT_ROUTE=" + s.RootRoute)
 	buf.WriteString("\nUDOCS_ROUTES=" + sliceToString(s.Routes))
 	buf.WriteString("\nUDOCS_MONGO_URL=" + s.MongoURL)
+	buf.WriteString("\nUDOCS_ORGANIZATION=" + s.Organization)
 	buf.WriteString("\nUDOCS_QUIP_ACCESS_TOKEN=" + s.QuipAccessToken)
 	buf.WriteString("\nUDOCS_PRIMARY_COLOR=" + s.PrimaryColor)
 	return buf.String()

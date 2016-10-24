@@ -5,6 +5,8 @@ UDocs [![Build Status](https://travis-ci.org/UltimateSoftware/udocs.svg?branch=m
 guide. Documentation content is written in Markdown, and persisted in a `docs/` directory at the root of your project's Git repository.
 From there, `udocs` can render the guide's content to HTML, and optionally serve it locally over HTTP for viewing, or send it to a remote UDocs instance for hosting.
 
+![](docs/readme.gif)
+
 ---
 
 ## Features
@@ -33,14 +35,6 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 
 ```bash
 $ go get -u github.com/UltimateSoftware/udocs
-
-# you can adjust UDocs configuration settings in two ways:
-$ vim ~/.udocs/udocs.conf
-# OR by setting the environment variables, i.e:
-$ vim ~/.udocs/.udocs_env && ~/.udocs/.udocs_env
-
-# run UDocs!
-$ udocs --help
 ```
 
 ---
@@ -48,7 +42,7 @@ $ udocs --help
 ## Usage
 
 ```
-$ udocs --help                                                                                                                                                 [±master ●▴]
+$ udocs --help                                                                                                                 
 
 Description:
   UDocs is a CLI library for Go that easily renders Markdown documentation guides to HTML, and serves them over HTTP.
