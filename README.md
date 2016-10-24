@@ -5,8 +5,6 @@ UDocs [![Build Status](https://travis-ci.org/UltimateSoftware/udocs.svg?branch=m
 guide. Documentation content is written in Markdown, and persisted in a `docs/` directory at the root of your project's Git repository.
 From there, `udocs` can render the guide's content to HTML, and optionally serve it locally over HTTP for viewing, or send it to a remote UDocs instance for hosting.
 
-> Note: UDocs currently has an Alpha release status, and is under active development.
-
 ---
 
 ## Features
@@ -24,9 +22,12 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 
 ## Installation
 
+> GitHub releases are coming soon.
+
 ### Requirements
 
 - Go 1.7+
+- Linux or OS X operating systems
 
 ### Clone and build from source
 
