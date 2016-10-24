@@ -2,6 +2,8 @@
 
 set -e -x
 
+VERSION_TAG=v1.0.1
+
 git checkout master
-git tag v0.1.0 -a -m "[ci skip] Bumped version tag"
+git tag ${VERSION_TAG} -a -m "Bumped version tag to ${VERSION_TAG}"
 git push --tags
