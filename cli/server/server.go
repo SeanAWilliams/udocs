@@ -40,10 +40,6 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 
 	tmpl := udocs.MustParseTemplate(defaultTemplateParams(*settings), Tmpls...)
 
-	// if err := os.Symlink(udocs.StaticPath(), filepath.Join(udocs.DeployPath(), "static")); err != nil && os.IsNotExist(err) {
-	// 	log.Fatalf("server.New: failed to symlink static directory: %v", err)
-	// }
-
 	scheme, host := parseHostURL(settings.EntryPoint)
 
 	if settings.RootRoute == "" {

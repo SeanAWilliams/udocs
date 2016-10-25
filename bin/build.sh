@@ -2,7 +2,7 @@
 
 set -e -x
 
-if [ ! -d "${GOPATH}/bin/go-bindata" ]; then
+if [ ! -f "${GOPATH}/bin/go-bindata" ]; then
   go get -u -v github.com/jteeuwen/go-bindata/...
 fi
 
