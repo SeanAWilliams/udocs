@@ -1,26 +1,11 @@
 package udocs
 
 import (
-	"fmt"
 	"html/template"
 	"io"
-	"io/ioutil"
-	"os"
-	"path/filepath"
+	"log"
 
-	"github.com/UltimateSoftware/udocs/static"
-)
-
-var (
-	defaultTemplateDir   = "templates/v2"
-	defaultTemplateFiles = []string{
-		"document.html",
-		"header.html",
-		"navbar.html",
-		"sidebar.html",
-		"inner.html",
-		"search.html",
-	}
+	rice "github.com/GeertJohan/go.rice"
 )
 
 type Template struct {
@@ -29,40 +14,44 @@ type Template struct {
 	tmpl   *template.Template
 }
 
-func LoadTemplateFiles(files ...string) ([]string, error) {
-	tmp := filepath.Join(os.TempDir(), "udocs", defaultTemplateDir)
-	os.MkdirAll(tmp, 0755)
-
-	var tmpls []string
-	for _, f := range files {
-		data, err := static.Asset(filepath.Join(defaultTemplateDir, f))
-		if err != nil {
-			return []string{}, err
-		}
-
-		filename := filepath.Join(tmp, f)
-		if err := ioutil.WriteFile(filename, data, 0755); err != nil {
-			return []string{}, err
-		}
-		tmpls = append(tmpls, filename)
+func DefaultTemplateFiles() []string {
+	return []string{
+		"document.html",
+		"header.html",
+		"navbar.html",
+		"sidebar.html",
+		"inner.html",
+		"search.html",
 	}
-
-	return tmpls, nil
 }
 
 func MustParseTemplate(params map[string]interface{}, files ...string) *Template {
-	templates, err := LoadTemplateFiles(files...)
-	if err != nil {
-		panic(err)
-
-	}
-
-	tmpl := template.Must(template.ParseFiles(templates...))
 	return &Template{
 		params: params,
 		files:  files,
-		tmpl:   tmpl,
+		tmpl:   mustParseTemplate(params, files...),
 	}
+}
+
+func mustParseTemplate(params map[string]interface{}, files ...string) *template.Template {
+	box, err := rice.FindBox("../../static/templates/v2")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tmpl := template.New("")
+	for _, f := range files {
+		s, err := box.String(f)
+		if err != nil {
+			log.Fatal(err)
+		}
+		tmpl, err = tmpl.Parse(s)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	return tmpl
 }
 
 func (t *Template) WithParameter(k string, v interface{}) *Template {
@@ -84,12 +73,8 @@ func (t *Template) Execute(w io.Writer, name string, b []byte) error {
 	}
 
 	if err := t.tmpl.Lookup(name).Execute(w, data); err != nil {
-		return fmt.Errorf("udocs.ExecuteTemplate: %v", err)
+		return err
 	}
 
 	return nil
-}
-
-func DefaultTemplateFiles() []string {
-	return defaultTemplateFiles
 }

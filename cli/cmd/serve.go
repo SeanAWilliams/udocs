@@ -29,6 +29,12 @@ func Serve() *cobra.Command {
 				dao = storage.NewFileSystemDao(udocs.DeployPath(), 0755, udocs.SearchPath())
 			}
 
+			if reset {
+				if err := dao.Drop(); err != nil {
+					log.Fatalf("failed to reset database: %v", err)
+				}
+			}
+
 			sidebar, _ := udocs.LoadSidebar(dao)
 
 			if err := sidebar.Save(dao); err != nil {
@@ -74,6 +80,7 @@ func Serve() *cobra.Command {
 
 	setFlag(serve, "dir")
 	setFlag(serve, "headless")
+	setFlag(serve, "reset")
 	return serve
 }
 

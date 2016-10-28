@@ -13,6 +13,7 @@ import (
 	"strings"
 	"time"
 
+	rice "github.com/GeertJohan/go.rice"
 	"github.com/UltimateSoftware/udocs/cli/udocs"
 	"github.com/mholt/archiver"
 	"golang.org/x/net/context"
@@ -25,12 +26,18 @@ func (s *Server) reverseProxyHandler(ctx context.Context, w http.ResponseWriter,
 	if s.scheme == "https" {
 		port = "443"
 	}
+
 	rootURL := &url.URL{
 		Scheme: s.scheme,
 		Host:   s.host + ":" + port,
 		Path:   "/" + s.settings.RootRoute,
 	}
+
 	httputil.NewSingleHostReverseProxy(rootURL).ServeHTTP(w, r)
+}
+
+func (s *Server) staticHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	http.StripPrefix("/static/", http.FileServer(rice.MustFindBox("../../static").HTTPBox())).ServeHTTP(w, r)
 }
 
 func (s *Server) pageHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -45,7 +52,7 @@ func (s *Server) pageHandler(ctx context.Context, w http.ResponseWriter, r *http
 		return
 	}
 
-	if ext := filepath.Ext(r.URL.Path); ext != ".html" && ext != ".quip" {
+	if ext := filepath.Ext(r.URL.Path); ext != "" && ext != ".html" && ext != ".quip" {
 		logAndWriteBinaryResponse(w, r, http.StatusOK, data)
 		return
 	}

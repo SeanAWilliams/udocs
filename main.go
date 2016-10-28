@@ -2,11 +2,10 @@ package main
 
 import "github.com/UltimateSoftware/udocs/cli/cmd"
 
-// buildNumber is set via -ldflags
-var buildNumber string
+var version string // set via -ldflags
 
 func main() {
-	cmd.BuildNumber = buildNumber
+	cmd.VersionNumber = version
 
 	// commands MUST be in alphabetical order
 	cmd.Root.AddCommand(

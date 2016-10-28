@@ -137,3 +137,7 @@ func (fs *FileSystemDao) Index(pageID, pageTitle string, pageData []byte) error 
 
 	return fs.SearchDB.Index.Index(pageID, indexData)
 }
+
+func (fs *FileSystemDao) Drop() error {
+	return fs.DeleteGlob("**")
+}

@@ -11,18 +11,18 @@ import (
 )
 
 var (
-	dir, git string
-	headless bool
+	dir             string
+	headless, reset bool
 )
 
 func setFlag(cmd *cobra.Command, flag string) {
 	switch flag {
 	case "dir":
 		cmd.Flags().StringVarP(&dir, "dir", "d", "docs", "Directory containing your guide and markdown files")
-	case "git":
-		cmd.Flags().StringVarP(&git, "git", "g", "", "Git repository from which to pull docs from (i.e. <project>/<repo>)")
 	case "headless":
 		cmd.Flags().BoolVar(&headless, "headless", false, "Run UDocs server in headless mode")
+	case "reset":
+		cmd.Flags().BoolVar(&reset, "reset", false, "Reset local UDocs database")
 	default:
 		panic("command.setFlag: unrecognized flag --" + flag)
 	}

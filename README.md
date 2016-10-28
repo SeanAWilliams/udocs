@@ -89,7 +89,7 @@ Executing `udocs env` will output the state of your current, local environment.
 - https://github.com/shurcooL/github_flavored_markdown (MIT)
 - https://github.com/spf13/cobra (Apache)
 - https://github.com/fsnotify/fsnotify/tree/v1.4.1 (BSD-3-Clause)
-- https://github.com/jteeuwen/go-bindata (CC0 1.0)
+- https://github.com/GeertJohan/go.rice (BSD-2-Clause)
 - https://gopkg.in/mgo.v2 (BSD-2-Clause)
 - http://fontawesome.io (http://fontawesome.io/license/)
 - http://getbootstrap.com (MIT)

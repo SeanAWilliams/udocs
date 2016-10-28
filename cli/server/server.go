@@ -11,7 +11,6 @@ import (
 	"github.com/UltimateSoftware/udocs/cli/config"
 	"github.com/UltimateSoftware/udocs/cli/storage"
 	"github.com/UltimateSoftware/udocs/cli/udocs"
-	"github.com/UltimateSoftware/udocs/static"
 	"github.com/dimfeld/httptreemux"
 	"golang.org/x/net/context"
 )
@@ -40,15 +39,11 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 
 	tmpl := udocs.MustParseTemplate(defaultTemplateParams(*settings), Tmpls...)
 
-	// if err := os.Symlink(udocs.StaticPath(), filepath.Join(udocs.DeployPath(), "static")); err != nil && os.IsNotExist(err) {
-	// 	log.Fatalf("server.New: failed to symlink static directory: %v", err)
-	// }
-
 	scheme, host := parseHostURL(settings.EntryPoint)
 
-	if settings.RootRoute == "" {
-		settings.RootRoute = "index.html"
-	}
+	// if settings.RootRoute == "" {
+	// 	settings.RootRoute = "index.html"
+	// }
 
 	s := &Server{
 		treeMux:  httptreemux.New(),
@@ -64,17 +59,12 @@ func New(settings *config.Settings, dao storage.Dao) *Server {
 }
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if strings.HasPrefix(r.URL.Path, "/static") {
-		filename := r.URL.Path[len("/static/"):]
-		data, err := static.Asset(filename)
-		if err != nil {
-			logAndWriteError(w, r, http.StatusNotFound, "asset was not found: "+r.URL.Path, err)
-			return
-		}
+	// if strings.HasPrefix(r.URL.Path, "/static/") {
+	// 	http.StripPrefix("/static/", http.FileServer(rice.MustFindBox("../../static").HTTPBox())).ServeHTTP(w, r)
+	// 	return
+	// }
 
-		writeBinaryResponse(w, r, http.StatusOK, data)
-		return
-	}
+	// TODO: staticFileHandler(w,r)
 
 	s.treeMux.ServeHTTP(w, r)
 }

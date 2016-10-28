@@ -4,6 +4,14 @@
 	"GodepVersion": "v74",
 	"Deps": [
 		{
+			"ImportPath": "github.com/GeertJohan/go.rice",
+			"Rev": "9fdfd46f9806a9228aae341d65ab75c5235c383c"
+		},
+		{
+			"ImportPath": "github.com/GeertJohan/go.rice/embedded",
+			"Rev": "9fdfd46f9806a9228aae341d65ab75c5235c383c"
+		},
+		{
 			"ImportPath": "github.com/blevesearch/bleve",
 			"Comment": "v0.5.0-73-gbfec4f2",
 			"Rev": "bfec4f23c03c249f05ee2286d4a38b19ebf915b5"
@@ -168,6 +176,10 @@
 			"Rev": "074dffcc83e9f421e261526d297cd93f22a34080"
 		},
 		{
+			"ImportPath": "github.com/daaku/go.zipexe",
+			"Rev": "a5fe2436ffcb3236e175e5149162b41cd28bd27d"
+		},
+		{
 			"ImportPath": "github.com/dimfeld/httppath",
 			"Rev": "c8e499c3ef3c3e272ed8bdcc1ccf39f73c88debc"
 		},
@@ -208,6 +220,10 @@
 		{
 			"ImportPath": "github.com/inconshreveable/mousetrap",
 			"Rev": "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
+		},
+		{
+			"ImportPath": "github.com/kardianos/osext",
+			"Rev": "c2c54e542fb797ad986b31721e1baedf214ca413"
 		},
 		{
 			"ImportPath": "github.com/mholt/archiver",

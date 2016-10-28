@@ -8,4 +8,5 @@ type Dao interface {
 	DeleteGlob(pattern string) error
 	Index(id, title string, data []byte) error
 	Query(query string) (*QueryResult, error)
+	Drop() error
 }

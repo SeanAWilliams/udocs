@@ -11,7 +11,6 @@ import (
 )
 
 type Settings struct {
-	APIVersion        string
 	EntryPoint        string
 	BindAddr          string
 	Port              string
@@ -31,7 +30,6 @@ func LoadSettings() Settings {
 
 func DefaultSettings() Settings {
 	return Settings{
-		APIVersion:        "v1",
 		EntryPoint:        "http://localhost",
 		BindAddr:          "0.0.0.0",
 		Port:              "9554",
@@ -43,7 +41,6 @@ func DefaultSettings() Settings {
 
 func (s Settings) String() string {
 	buf := new(bytes.Buffer)
-	buf.WriteString("UDOCS_API_VERSION=" + s.APIVersion)
 	buf.WriteString("\nUDOCS_ENTRY_POINT=" + s.EntryPoint)
 	buf.WriteString("\nUDOCS_BIND_ADDR=" + s.BindAddr)
 	buf.WriteString("\nUDOCS_PORT=" + s.Port)
@@ -58,7 +55,6 @@ func (s Settings) String() string {
 
 func EnvVars(settings Settings) Settings {
 	return Settings{
-		APIVersion:        loadEnvVar("UDOCS_API_VERSION", settings.APIVersion),
 		EntryPoint:        loadEnvVar("UDOCS_ENTRY_POINT", settings.EntryPoint),
 		BindAddr:          loadEnvVar("UDOCS_BIND_ADDR", settings.BindAddr),
 		Port:              loadEnvVar("UDOCS_PORT", settings.Port),
@@ -92,7 +88,6 @@ func Conf() Settings {
 
 func loadFromMap(m map[string]string) Settings {
 	return Settings{
-		APIVersion:        m["UDOCS_API_VERSION"],
 		EntryPoint:        m["UDOCS_ENTRY_POINT"],
 		BindAddr:          m["UDOCS_BIND_ADDR"],
 		Port:              m["UDOCS_PORT"],
@@ -124,7 +119,7 @@ func sliceToString(slice []string) string {
 	for i, v := range slice {
 		buf.WriteString(v)
 		if i != len(slice)-1 {
-			buf.WriteRune(44) // comma
+			buf.WriteRune(',')
 		}
 	}
 	return buf.String()
