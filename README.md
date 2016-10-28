@@ -65,6 +65,8 @@ Use "udocs [command] --help" for more information about a command.
 
 ## Configuration 
 
+> More detailed notes are on the way...
+
 `udocs` is configurable via the following environment varibles: 
 
 - `UDOCS_ENTRY_POINT`
