@@ -2,15 +2,10 @@ package main
 
 import "github.com/UltimateSoftware/udocs/cli/cmd"
 
-//go:generate vfsgendev -source="github.com/UltimateSoftware/udocs/static".Assets
-
-// buildNumber is set via -ldflags
-var buildNumber string
+var version string // set via -ldflags
 
 func main() {
-	// static.FS = http.Dir("static")
-	// static.Generate()
-	cmd.BuildNumber = buildNumber
+	cmd.VersionNumber = version
 
 	// commands MUST be in alphabetical order
 	cmd.Root.AddCommand(
