@@ -5,8 +5,9 @@ set -e -x
 # clear out older binaries
 rm -rf ./bin/udocs*
 
+# get the version from args
 if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  echo "v${1}" > ./version
+  echo "v${1}" > ./version # update the version file
 fi
 version=$(head ./version)
 
