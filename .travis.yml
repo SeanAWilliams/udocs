@@ -14,5 +14,4 @@ deploy:
   - bin/udocs-osx-$TRAVIS_TAG
   on:
     tags: true
-    branch: master
-    condition: "$TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$"
+    branch: ^v[0-9]+\.[0-9]+\.[0-9]+$
