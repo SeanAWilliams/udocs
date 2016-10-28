@@ -9,7 +9,9 @@ deploy:
   api_key:
     secure: JBG/ltsBrgqfBGi2C4BKjX7n1L0rahhgc7n/BseXpSPBvte5rzb5m/yhDhRrX9bSmzXbUOwUfxDBdY+5nuoclbyMjK5uhYcIy7A2+5kLeLu/TmIFjTxWIbPpBUzBXZ2cLlsUnmtfT59mEAcwqMRuixB8LC0fVV098/7mynHdR7vI6QNMxBSn7sLL1HIoBdVL9BrwvADo1JyM0Ux4HHFubJdemVff0s33Cw42DMBRoyAi3Mi6rMm6oPv+80m4eKVXLq9ZkH1ZEySQ7gjWR5/6Q/4IB4kt0ykaSb5b8vEq5O1MXUJ9C1L4adIFkMgdIkEWC0rPzeuUDY4BeBzleRjJHys/A/uatS0TnAsN0PE4QdLDAsHzidNpIGkrfWT9RsPlroy0KPCYYYajQUL/BC5QhhDqfcpY1CQXTV/mLtgy8HRNW/dor5kmKM/jd/lE3P+geoJ4J9eche7DaS4dLHIYeV2yg/7ADvcJW+oFyvOuzgyWaxuulC2vgzZltMvpVq9eorQZgOZxn3hSoKcRiGOA0VYa1fK3jUnRhE9squQVmv9Qk5dHuXKDeW7s6ekOK8dqvc4pgX1e+k9D0szllxrhVzaTsVo4i8chEy5d/Um5N4wq+MT8w2IMvM/4jMiSG7OdddN5Ic30YsN5kaorfk08n2pKGnn60pmmqG/e8E9cx8U=
   file: 
-  - bin/udocs-docker
-  - bin/udocs-osx
+  - bin/udocs-docker-$TRAVIS_TAG
+  - bin/udocs-osx-$TRAVIS_TAG
   on:
     tags: true
+    branch: master
+    condition: "$TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$"
