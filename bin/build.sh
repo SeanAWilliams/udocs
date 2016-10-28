@@ -2,13 +2,13 @@
 
 set -e -x
 
-if [ ! -f "${GOPATH}/bin/go-bindata" ]; then
-  go get -u -v github.com/jteeuwen/go-bindata/...
-fi
+# if [ ! -f "${GOPATH}/bin/go-bindata" ]; then
+#   go get -u -v github.com/jteeuwen/go-bindata/...
+# fi
 
-cd static
-go-bindata -pkg static ./*/* 
-cd -
+# cd static
+# go-bindata -pkg static ./...
+# cd ..
 
 go fmt ./cli/...
 go vet -v ./cli/...
