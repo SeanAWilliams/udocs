@@ -3,9 +3,17 @@
 set -e -x
 
 git checkout master
-version=$(head ./version)
-git add version
-git commit -m "Bumped version tag to $version"
-git push 
-git tag $version
-git push origin $version
+local_version=$(head ./version)
+git pull
+remote_version=$(head ./version)
+
+if [ "$local_version" != "$remote_version" ]; then
+    echo "Local version $local_version does not match remote version $remote_version"
+    exit 1
+fi
+
+# git add version
+# git commit -m "Bumped version tag to $version"
+# git push 
+git tag -a -m "Bumped version tag to $remote_version" $remote_version
+git push origin $remote_version

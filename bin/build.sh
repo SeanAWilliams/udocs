@@ -8,6 +8,8 @@ rm -rf ./bin/udocs*
 # get the version from args
 if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   echo "v${1}" > ./version # update the version file
+  git add ./version
+  git commit -m "bumped version locally to v${1}"
 fi
 version=$(head ./version)
 
