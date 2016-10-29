@@ -12,8 +12,5 @@ if [ "$local_version" != "$remote_version" ]; then
     exit 1
 fi
 
-# git add version
-# git commit -m "Bumped version tag to $version"
-# git push 
 git tag -a -m "Bumped version tag to $remote_version" $remote_version
 git push origin $remote_version
