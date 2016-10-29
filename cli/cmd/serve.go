@@ -65,7 +65,7 @@ func Serve() *cobra.Command {
 				log.Fatalf("error: command.Serve: %v\n", err)
 			}
 
-			go watchFiles(settings.RootRoute, dir, dao)
+			// go watchFiles(settings.RootRoute, dir, dao)
 			abs, err := filepath.Abs(dir)
 			if err != nil {
 				abs = dir

@@ -30,7 +30,7 @@ function setSidebarOnPageLoad() {
 
 function listenOnSidebarClick() {
     $(".has-sub-items-content").click(function() {
-        $(this).parent(".has-sub-items").toggleClass("is-open");
+        // $(this).parent(".has-sub-items").toggleClass("is-open");
     });
 
     $(".sub-items a").click(function(){

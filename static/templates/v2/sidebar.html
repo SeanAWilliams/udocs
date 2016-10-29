@@ -1,23 +1,33 @@
 {{define "sidebar"}}
-<div id="main-sidebar-nav"  class="col-sm-3 col-md-2 sidebar">
+<div id="main-sidebar-nav" class="sidebar">
     <ul class="nav-docs nav nav-sidebar">
+        <li>
+            <form id="navbar-search" class="navbar-form">
+                <div class="form-group">
+                    <input id="search-input" type="search" class="form-control" placeholder="{{.Params.search_placeholder}}">
+                </div>
+            </form>
+        </li>
     {{range .Params.sidebar}}{{if ne .Header ""}}
         <li class="main-item has-sub-items">
-            <div class="has-sub-items-content" id="sidebar-main-text">{{.Header}}<i
-                    class="fa fa-angle-down"></i></div>
+            <div class="has-sub-items-content" id="sidebar-main-text">{{.Header}}
+                <!--<i class="fa fa-angle-down"></i>-->
+                </div>
             <ul class="sub-items">
                 {{range .Pages}}
                 {{if .SubPages}}
                 <li class="has-sub-items">
                     <div class="has-sub-items-content"><a class="nav-docs-link" href='{{.Path}}'
-                                                            title='{{.Title}}'>{{.Title}}</a><i
-                            class="fa fa-angle-down"></i></div>
+                                                            title='{{.Title}}'>{{.Title}}</a>
+                                                            <!--<i class="fa fa-angle-down"></i>-->
+                                                            </div>
                     {{range .SubPages}}
                     {{if .SubPages}}
                     <ul class="sub-items level-2 has-sub-items">
                         <div class="has-sub-items-content"><a class="nav-docs-link" href='{{.Path}}'
-                                                                title='{{.Title}}'>{{.Title}}</a><i
-                                class="fa fa-angle-down"></i></div>
+                                                                title='{{.Title}}'>{{.Title}}</a>
+                               <!--<i class="fa fa-angle-down"></i>-->
+                                </div>
                         {{range .SubPages}}
                         {{if eq .TreeLevel 3}}
                         <ul class="sub-items level-3">
@@ -46,56 +56,4 @@
     </ul>
 </div>
 
-
-<!--
-<div id="main-sidebar-nav" class="sidebar">
-    <nav class="nav-docs nav">
-        <ul class="nav-docs-items">
-            {{range .Params.sidebar}}
-            {{if ne .Header ""}}
-            <li class="main-item has-sub-items">
-                <div class="has-sub-items-content" id="sidebar-main-text">{{.Header}}<i
-                        class="fa fa-angle-down"></i></div>
-                <ul class="sub-items">
-                    {{range .Pages}}
-                    {{if .SubPages}}
-                    <li class="has-sub-items">
-                        <div class="has-sub-items-content"><a class="nav-docs-link" href='{{.Path}}'
-                                                              title='{{.Title}}'>{{.Title}}</a><i
-                                class="fa fa-angle-down"></i></div>
-                        {{range .SubPages}}
-                        {{if .SubPages}}
-                        <ul class="sub-items level-2 has-sub-items">
-                            <div class="has-sub-items-content"><a class="nav-docs-link" href='{{.Path}}'
-                                                                  title='{{.Title}}'>{{.Title}}</a><i
-                                    class="fa fa-angle-down"></i></div>
-                            {{range .SubPages}}
-                            {{if eq .TreeLevel 3}}
-                            <ul class="sub-items level-3">
-                                <li><a class="nav-docs-link" href='{{.Path}}' title='{{.Title}}'>{{.Title}}</a>
-                                </li>
-                            </ul>
-                            {{else}}
-                            <li><a class="nav-docs-link" href='{{.Path}}' title='{{.Title}}'>{{.Title}}</a></li>
-                            {{end}}
-                            {{end}}
-                        </ul>
-                        {{else}}
-                        <ul class="sub-items level-2">
-                            <li><a class="nav-docs-link" href='{{.Path}}' title='{{.Title}}'>{{.Title}}</a></li>
-                        </ul>
-                        {{end}}
-                        {{end}}
-                    </li>
-                    {{else}}
-                    <li><a class="nav-docs-link" href='{{.Path}}' title='{{.Title}}'>{{.Title}}</a></li>
-                    {{end}}
-                    {{end}}
-                </ul>
-            </li>
-            {{end}}
-            {{end}}
-        </ul>
-    </nav>
-</div>-->
 {{end}}
