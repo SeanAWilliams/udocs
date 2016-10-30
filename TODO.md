@@ -4,6 +4,8 @@
 
 ### Issues
 
+- search page rendering should be ajax
+- there is a padding discrepancy between document and inner rendering
 - make default template dir overridable
 - anchor tag goto is about 50 px's off
 - handler tests... all of them
