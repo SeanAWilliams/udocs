@@ -5,17 +5,17 @@
 <body>
     {{template "navbar" .}}
     <div class="container">
-        <div id="parent" class="row">
-            <div class="col-sm-3 col-md-3" role="complementary">{{template "sidebar" .}}</div>
+        <div class="row">
+            <div class="col-sm-3 col-md-3 sidebar" role="complementary">{{template "sidebar" .}}</div>
             <div id="inner" class="col-sm-9 col-md-9 main" role="main">
-                <div class="row"><h1>Search</h1></div>
-                <div class="row"><h5>{{.Params.query_result.Total}} matches, took {{.Params.query_result.Took}} seconds</h5><hr></div>
+               <h1>Search</h1>
+               <h5>{{.Params.query_result.Total}} matches, took {{.Params.query_result.Took}} seconds</h5><hr>
                 {{range .Params.query_result.QueryMatches}}
-                <div class="row">
                     <h4 style="margin-bottom: 0.25em;"><a title='{{.Title}}' href='{{.ID}}'>{{.Title}}</a></h4>
                     <p style="font-size: 13px;"><code class="language-default">{{.ID}}</code><br>{{.Body}}</p>
-                </div>
                 {{end}}
+                            <br>
+            <hr/> 
             </div>
         </div>
     </div>

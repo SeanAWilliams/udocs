@@ -17,34 +17,25 @@ body {
 }
 
 .main {
-  /*padding-top: 5px;*/
-  padding-left: 40px;
-  /*max-width: 980px !important;*/
-}
-
-.main {
-    /*float: right;*/
+    float: right;
+    /*padding-left: 40px;*/
     /*width:  calc(100% - 280px);*/
     /*-webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;*/
-    margin-right: 50px;
-    margin-left: 280px;
+    /*margin-right: 50px;*/
+    /*margin-left: 280px;*/
     height: auto;
     padding-bottom: 100px;
     overflow-y: auto;
 }
 
-#parent {
-  /*display: flex;*/
-}
-
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
   .main  {
-    /*padding-right: 70px;*/
+    padding-right: 70px;
     padding-left: 40px;
   }
-}
+}*/
 
 .main .page-header {
   margin-top: 0;
@@ -102,7 +93,7 @@ img {
 @media (max-width: 767px) {
     .main {
         padding-top: 78px;
-        margin-left: 0px; 
+        /*margin-left: 0px; */
     }
 }
 
@@ -113,10 +104,10 @@ img {
     position: fixed;
     top: 51px;
     bottom: 0;
-    /*left: 0;*/
     z-index: 1000;
     display: block;
-    padding: 20px;
+    /*padding: 20px;*/
+    padding-top: 27px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     /*background-color: #fafafa;*/
@@ -130,13 +121,13 @@ img {
 }
 
 #search-input {
-    width: 265px;
+    /*width: 240px;*/
 }
 
 .nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
+  /*margin-right: -21px; /* 20px padding + 1px border */
   margin-bottom: 20px;
-  margin-left: -20px;
+  /*margin-left: -20px;*/
 }
 .nav-sidebar > li > a {
   padding-right: 20px;
@@ -191,7 +182,7 @@ img {
 }
 
 .nav-docs .has-sub-items-content {
-    padding: 0 17px;
+    /*padding: 0 17px;*/
     cursor: pointer;
     position: relative;
     -webkit-transition: color 0.2s ease;
@@ -222,7 +213,7 @@ img {
 .nav-docs .sub-items a {
     display: block;
     height: 36px;
-    padding: 0 17px;
+    /*padding: 0 17px;*/
 }
 
 .nav-docs .sub-items a.is-active {
@@ -283,7 +274,7 @@ img {
 }
 
 #sidebar-main-text {
-    padding-left: 17px;
+    /*padding-left: 17px;*/
     border-bottom: 1px solid #eee;
 }
 
@@ -336,4 +327,10 @@ h1 a.anchor .octicon {
 #inner {
     margin-left:auto;
     margin-right:auto;
+    /*float:left;*/
+    /*min-height: 400px;*/
+}
+
+#sidebar {
+    /*float:right;*/
 }
