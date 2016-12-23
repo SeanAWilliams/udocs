@@ -59,7 +59,7 @@ the root of your `/docs` directory:
 * `SUMMARY.md` defines the sidebar table of contents for your guide, as well as the sub-route at which the docs guide would be served at. The summary file should start out with:
 
     ```
-    # <My UCloud Managed Service>
+    # <My App>
     ```
    For each chapter (and sub-chapter) in the guide, add an entry like so:
 
@@ -100,7 +100,7 @@ the root of your `/docs` directory:
     The aforementioned content would have the following directory structure within your service's Git repository:
 
     ```
-    +-- my-ucloud-managed-service
+    +-- my-app
         +-- src
         +-- docs
         |   +-- README.md

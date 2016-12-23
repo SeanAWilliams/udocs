@@ -14,6 +14,7 @@ import (
 	"time"
 
 	rice "github.com/GeertJohan/go.rice"
+	"github.com/UltimateSoftware/udocs/cli/storage"
 	"github.com/UltimateSoftware/udocs/cli/udocs"
 	"github.com/mholt/archiver"
 	"golang.org/x/net/context"
@@ -137,7 +138,7 @@ func (s *Server) searchHandler(ctx context.Context, w http.ResponseWriter, r *ht
 	q := r.URL.Query().Get("q")
 	queryResult, err := s.dao.Query(q)
 	if err != nil {
-		logAndWriteError(w, r, http.StatusInternalServerError, "server.searchHandler failed to execute query", err)
+		queryResult = &storage.QueryResult{}
 		return
 	}
 
