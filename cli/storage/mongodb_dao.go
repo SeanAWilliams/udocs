@@ -22,7 +22,7 @@ type MongoDBDao struct {
 	*SearchDB
 }
 
-func NewMongoDBDao(connection string, searchDir string) *MongoDBDao {
+func NewMongoDBDao(connection string, searchDir string) (*MongoDBDao, error) {
 	var session *mgo.Session
 	var err error
 
@@ -49,12 +49,16 @@ func NewMongoDBDao(connection string, searchDir string) *MongoDBDao {
 		Unique: true,
 	}
 
+	searchDB, err := NewSearchDB(searchDir)
+	if err != nil {
+		return nil, err
+	}
 	return &MongoDBDao{
 		Session:           session,
 		Idx:               index,
 		defaultCollection: "root",
-		SearchDB:          NewSearchDB(searchDir),
-	}
+		SearchDB:          searchDB,
+	}, nil
 }
 
 func (mongo *MongoDBDao) Drop() error {

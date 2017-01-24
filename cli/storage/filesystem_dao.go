@@ -18,12 +18,16 @@ type FileSystemDao struct {
 	*SearchDB
 }
 
-func NewFileSystemDao(root string, mode os.FileMode, searchDir string) *FileSystemDao {
+func NewFileSystemDao(root string, mode os.FileMode, searchDir string) (*FileSystemDao, error) {
+	searchDB, err := NewSearchDB(searchDir)
+	if err != nil {
+		return nil, err
+	}
 	return &FileSystemDao{
 		root:     root,
 		mode:     mode,
-		SearchDB: NewSearchDB(searchDir),
-	}
+		SearchDB: searchDB,
+	}, nil
 }
 
 func (fs *FileSystemDao) Fetch(pageID string) ([]byte, error) {

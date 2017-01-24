@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
-	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -25,23 +24,24 @@ const (
 	MODIFIED = "modified"
 )
 
-func NewSearchDB(dir string) *SearchDB {
+func NewSearchDB(dir string) (*SearchDB, error) {
+	os.RemoveAll(filepath.Dir(dir))
 	os.MkdirAll(filepath.Dir(dir), 0755)
 	indexMapping := buildIndexMapping()
 	index, err := bleve.Open(dir)
 	if err == bleve.ErrorIndexPathDoesNotExist {
 		index, err = bleve.New(dir, indexMapping)
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 	} else if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	return &SearchDB{
 		Path:         dir,
 		IndexMapping: indexMapping,
 		Index:        index,
-	}
+	}, nil
 }
 
 func buildIndexMapping() mapping.IndexMapping {

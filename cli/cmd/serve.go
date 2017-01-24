@@ -23,28 +23,30 @@ func Serve() *cobra.Command {
 			addr := settings.BindAddr + ":" + settings.Port
 
 			var dao storage.Dao
+			var err error
 			if url := settings.MongoURL; url != "" {
-				dao = storage.NewMongoDBDao(url, udocs.SearchPath())
+				dao, err = storage.NewMongoDBDao(url, udocs.SearchPath())
 			} else {
-				dao = storage.NewFileSystemDao(udocs.DeployPath(), 0755, udocs.SearchPath())
+				dao, err = storage.NewFileSystemDao(udocs.DeployPath(), 0755, udocs.SearchPath())
 			}
+			exitOnError(err)
 
 			if reset {
 				if err := dao.Drop(); err != nil {
-					log.Fatalf("failed to reset database: %v", err)
+					exitOnError(err)
 				}
 			}
 
 			sidebar, _ := udocs.LoadSidebar(dao)
 
 			if err := sidebar.Save(dao); err != nil {
-				log.Fatalf("error: command.Serve: %v", err)
+				exitOnError(err)
 			}
 
 			if _, ok := dao.(*storage.MongoDBDao); ok {
 				for _, summary := range sidebar {
 					if err := udocs.UpdateSearchIndex(summary, dao); err != nil {
-						log.Printf("error: command.Serve: %v", err)
+						exitOnError(err)
 					}
 				}
 			}
@@ -62,7 +64,7 @@ func Serve() *cobra.Command {
 			localServer := server.New(&settings, dao)
 
 			if err := udocs.Build(settings.RootRoute, dir, dao); err != nil {
-				log.Fatalf("error: command.Serve: %v\n", err)
+				exitOnError(err)
 			}
 
 			go watchFiles(settings.RootRoute, dir, dao)

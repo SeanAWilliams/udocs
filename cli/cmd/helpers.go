@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -48,4 +49,11 @@ func runTestCommand(cmd *cobra.Command, input string) error {
 		return fmt.Errorf("failed to run test command `udocs %s %s` : %v", cmd.Name(), input, err)
 	}
 	return nil
+}
+
+func exitOnError(err error) {
+	if err != nil {
+		os.RemoveAll(udocs.RootPath())
+		log.Fatalf("error: %v\n", err)
+	}
 }

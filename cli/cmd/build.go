@@ -24,8 +24,8 @@ func Build() *cobra.Command {
 			}
 
 			os.RemoveAll("_docs")
-			dao := storage.NewFileSystemDao("_docs", 0755, udocs.SearchPath())
-
+			dao, err := storage.NewFileSystemDao("_docs", 0755, udocs.SearchPath())
+			exitOnError(err)
 			if err := udocs.Build(parseRoute(), dir, dao); err != nil {
 				fmt.Printf("Build failed: %v\n", err)
 				return
