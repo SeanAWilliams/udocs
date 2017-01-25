@@ -44,16 +44,17 @@ func TestBuild(t *testing.T) {
 }
 
 const testSummary = `
-# My Test 	Route/Path
+# My Test 1.0 	(Route/Path)
 * [Overview](README.md)
 * [Tests](tests/README.md)
 	* [Unit](test/unit.md)
 `
 
 func TestExtractRoute(t *testing.T) {
+	expected := "my-test-1-0-route-path"
 	summary := bytes.NewReader([]byte(testSummary))
 	route := ExtractRoute(summary)
-	if route != "my-test-route-path" {
-		t.Errorf("Expected: my-test-route, Got: %s", route)
+	if route != expected {
+		t.Errorf("Expected: %s, Got: %s", expected, route)
 	}
 }
