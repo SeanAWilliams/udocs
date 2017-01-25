@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/UltimateSoftware/udocs/cli/storage"
@@ -203,7 +204,9 @@ func ExtractRoute(r io.Reader) string {
 			sb.WriteRune('-')
 		}
 	}
-	return strings.Replace(sb.String(), "/", "-", -1)
+	alphanum := regexp.MustCompile("[^a-z0-9]+")
+	clean := regexp.MustCompile("^-+|-+$")
+	return clean.ReplaceAllString(alphanum.ReplaceAllString(sb.String(), "-"), "")
 }
 
 func UpdateSearchIndex(summary Summary, dao storage.Dao) error {
