@@ -327,3 +327,17 @@ h1 a.anchor .octicon {
 .octicon-link:before {
     content: "\f0c1";
 }
+
+
+.navbar-brand {
+    background-image: url(/static/images/ultimatelogo.png);
+    background-repeat: no-repeat;
+    background-position: 15px 50%;
+}
+
+.divider {
+    margin: 0 10px 0 85px;
+    height: 24px;
+    float: left;
+    border-right: 5px solid #cccccc;
+}
