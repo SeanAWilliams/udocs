@@ -243,7 +243,7 @@ func getPageID(route, path string) string {
 
 func containsFile(files []os.FileInfo, name string) bool {
 	for _, fi := range files {
-		if fi.Mode().IsRegular() && fi.Name() == name {
+		if fi.Mode().IsRegular() && strings.EqualFold(fi.Name(), name) {
 			return true
 		}
 	}

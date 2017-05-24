@@ -139,7 +139,7 @@ func convertPaths(oldRoot, newRoot, oldExt, newExt string, subpaths ...string) s
 	last := len(subpaths) - 1
 	lastPath := subpaths[last]
 
-	if base := filepath.Base(lastPath); base == oldRoot {
+	if base := filepath.Base(lastPath); strings.EqualFold(base, oldRoot) {
 		lastPath = lastPath[:len(lastPath)-len(base)] + newRoot
 	} else if filepath.Ext(lastPath) == oldExt {
 		lastPath = lastPath[:len(lastPath)-len(oldExt)] + newExt
