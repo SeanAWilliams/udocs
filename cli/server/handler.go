@@ -26,6 +26,8 @@ func (s *Server) reverseProxyHandler(ctx context.Context, w http.ResponseWriter,
 	port := s.settings.Port
 	if s.scheme == "https" {
 		port = "443"
+	} else {
+		s.scheme = "http"
 	}
 
 	rootURL := &url.URL{
@@ -33,7 +35,6 @@ func (s *Server) reverseProxyHandler(ctx context.Context, w http.ResponseWriter,
 		Host:   s.host + ":" + port,
 		Path:   "/" + s.settings.RootRoute,
 	}
-
 	httputil.NewSingleHostReverseProxy(rootURL).ServeHTTP(w, r)
 }
 

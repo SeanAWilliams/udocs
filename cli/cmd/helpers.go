@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/UltimateSoftware/udocs/cli/config"
 	"github.com/UltimateSoftware/udocs/cli/udocs"
 	"github.com/spf13/cobra"
 )
@@ -29,7 +30,7 @@ func setFlag(cmd *cobra.Command, flag string) {
 	}
 }
 
-func parseRoute() string {
+func parseRouteFromSummary() string {
 	f, err := os.Open(filepath.Join(dir, udocs.SUMMARY_MD))
 	if err != nil {
 		return ""
@@ -39,6 +40,19 @@ func parseRoute() string {
 	if route == "" {
 		fmt.Printf("Failed to parse H1 header in SUMMARY.md, and no other route was specified.\nRun `udocs serve --help` for more information.")
 		os.Exit(-1)
+	}
+	return route
+}
+
+func parseRoute(settings *config.Settings) string {
+	f, err := os.Open(filepath.Join(dir, udocs.SUMMARY_MD))
+	if err != nil {
+		return ""
+	}
+	defer f.Close()
+	route := settings.HomePath
+	if len(route) > 0 && !strings.HasPrefix(route, "/") {
+		route = "/" + route
 	}
 	return route
 }

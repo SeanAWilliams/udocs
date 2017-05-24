@@ -60,7 +60,7 @@ func Serve() *cobra.Command {
 				return
 			}
 
-			settings.RootRoute = parseRoute()
+			settings.RootRoute = parseRoute(&settings)
 			localServer := server.New(&settings, dao)
 
 			if err := udocs.Build(settings.RootRoute, dir, dao); err != nil {

@@ -85,7 +85,7 @@ func (s *Server) Handle(method, path string, h ContextHandlerFunc) {
 }
 
 func (s *Server) registerEndpoints() {
-	s.Handle(http.MethodGet, "/", s.reverseProxyHandler)
+	s.Handle(http.MethodGet, "/", s.pageHandler)
 	s.Handle(http.MethodGet, "/static/*", s.staticHandler)
 	s.Handle(http.MethodGet, "/:route", s.pageHandler)
 	s.Handle(http.MethodGet, "/:route/*", s.pageHandler)

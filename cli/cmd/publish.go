@@ -42,7 +42,7 @@ func Publish() *cobra.Command {
 				os.Exit(-1)
 			}
 
-			route := parseRoute()
+			route := parseRouteFromSummary()
 			uri := fmt.Sprintf("%s:%s/api/%s", settings.EntryPoint, settings.Port, route)
 			if err := publishDocs(uri, tmp); err != nil {
 				fmt.Printf("Publish failed: %v\n", err)

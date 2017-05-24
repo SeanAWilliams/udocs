@@ -197,7 +197,11 @@ function reportData(title, path) {
             }
         }
     });
-    document.title = title;
+    if (title === undefined) {
+        document.title = "UDocs"
+    } else {
+        document.title = title;
+    }
     setSidebar(path.split('#')[0]);
 }
 

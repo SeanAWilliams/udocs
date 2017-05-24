@@ -19,7 +19,7 @@ func Destroy() *cobra.Command {
   "un-register" that route from the server.
 	`,
 		Run: func(cmd *cobra.Command, args []string) {
-			route := parseRoute()
+			route := parseRouteFromSummary()
 			settings := config.LoadSettings()
 			uri := fmt.Sprintf("%s:%s/api/%s", settings.EntryPoint, settings.Port, route)
 
