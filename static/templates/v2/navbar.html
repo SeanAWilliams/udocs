@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button> {{if ne .Params.organization ""}}
-			<a class="navbar-brand" href="{{.Params.entrypoint}}">
+			<a class="navbar-brand" href="{{.Params.entrypoint}}{{.Params.homePath}}">
 				<span class="divider"></span>
 				<span class="text">{{.Params.organization}} Docs</span>
 			</a>

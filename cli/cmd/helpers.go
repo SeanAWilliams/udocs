@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	dir             string
+	dir, homePath   string
 	headless, reset bool
 )
 
@@ -25,6 +25,8 @@ func setFlag(cmd *cobra.Command, flag string) {
 		cmd.Flags().BoolVar(&headless, "headless", false, "Run UDocs server in headless mode")
 	case "reset":
 		cmd.Flags().BoolVar(&reset, "reset", false, "Reset local UDocs database")
+	case "homePath":
+		cmd.Flags().StringVarP(&homePath, "homePath", "p", "", "Path where the root of your docs is served")
 	default:
 		panic("command.setFlag: unrecognized flag --" + flag)
 	}

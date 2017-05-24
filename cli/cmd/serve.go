@@ -60,6 +60,7 @@ func Serve() *cobra.Command {
 				return
 			}
 
+			settings.HomePath = homePath
 			settings.RootRoute = parseRoute(&settings)
 			localServer := server.New(&settings, dao)
 
@@ -83,6 +84,7 @@ func Serve() *cobra.Command {
 	setFlag(serve, "dir")
 	setFlag(serve, "headless")
 	setFlag(serve, "reset")
+	setFlag(serve, "homePath")
 	return serve
 }
 

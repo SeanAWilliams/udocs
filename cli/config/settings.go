@@ -52,7 +52,6 @@ func (s Settings) String() string {
 	buf.WriteString("\nUDOCS_ORGANIZATION=" + s.Organization)
 	buf.WriteString("\nUDOCS_QUIP_ACCESS_TOKEN=" + s.QuipAccessToken)
 	buf.WriteString("\nUDOCS_PRIMARY_COLOR=" + s.PrimaryColor)
-	buf.WriteString("\nUDOCS_HOME_PATH=" + s.HomePath)
 	return buf.String()
 }
 
@@ -69,7 +68,6 @@ func EnvVars(settings Settings) Settings {
 		MongoURL:          loadEnvVar("UDOCS_MONGO_URL", settings.MongoURL),
 		QuipAccessToken:   loadEnvVar("UDOCS_QUIP_ACCESS_TOKEN", settings.QuipAccessToken),
 		PrimaryColor:      loadEnvVar("UDOCS_PRIMARY_COLOR", settings.PrimaryColor),
-		HomePath:          loadEnvVar("UDOCS_HOME_PATH", settings.HomePath),
 	}
 }
 
@@ -103,7 +101,6 @@ func loadFromMap(m map[string]string) Settings {
 		MongoURL:          m["UDOCS_MONGO_URL"],
 		QuipAccessToken:   m["UDOCS_QUIP_ACCESS_TOKEN"],
 		PrimaryColor:      m["UDOCS_PRIMARY_COLOR"],
-		HomePath:          m["UDOCS_HOME_PATH"],
 	}
 }
 

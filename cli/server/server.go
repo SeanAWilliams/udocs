@@ -148,5 +148,6 @@ func defaultTemplateParams(settings config.Settings) map[string]interface{} {
 	m["email"] = settings.Email
 	m["search_placeholder"] = settings.SearchPlaceholder
 	m["color"] = settings.PrimaryColor
+	m["homePath"] = settings.HomePath
 	return m
 }
