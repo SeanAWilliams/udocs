@@ -67,7 +67,7 @@ func Build(route, dir string, dao storage.Dao) error {
 	// }
 
 	var summary Summary
-
+	foundSummary := false
 	if err := filepath.Walk(abs, func(path string, fi os.FileInfo, err error) error {
 		if fi == nil || !fi.Mode().IsRegular() {
 			return nil
@@ -80,7 +80,8 @@ func Build(route, dir string, dao storage.Dao) error {
 			return err
 		}
 
-		if IsSummaryFile(path) {
+		if IsSummaryFile(path) && !foundSummary {
+			foundSummary = true
 			summary, err = ParseSummary(route, data)
 			if err != nil {
 				return err
