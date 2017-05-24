@@ -61,10 +61,10 @@ func Build(route, dir string, dao storage.Dao) error {
 	}
 
 	// cache all original pages, so we can mark any hanging pages for later deletion
-	purgeList := make(map[string]struct{}, 0)
-	for _, filename := range dao.FetchGlob(route + "/**/*") {
-		purgeList[filename] = struct{}{}
-	}
+	// purgeList := make(map[string]struct{}, 0)
+	// for _, filename := range dao.FetchGlob(route + "/**/*") {
+	// 	purgeList[filename] = struct{}{}
+	// }
 
 	var summary Summary
 
@@ -114,18 +114,18 @@ func Build(route, dir string, dao storage.Dao) error {
 			return err
 		}
 
-		delete(purgeList, id)
+		// delete(purgeList, id)
 		return nil
 
 	}); err != nil {
 		return err
 	}
 
-	for filename := range purgeList {
-		if err := dao.Delete(filename); err != nil {
-			return err
-		}
-	}
+	// for filename := range purgeList {
+	// 	if err := dao.Delete(filename); err != nil {
+	// 		return err
+	// 	}
+	// }
 
 	if err := LoadQuipDocuments(summary, dao); err != nil {
 		return err

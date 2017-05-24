@@ -68,6 +68,12 @@ func Serve() *cobra.Command {
 				exitOnError(err)
 			}
 
+			if projectDir != "" {
+				if err := udocs.Build(settings.RootRoute+"/", projectDir, dao); err != nil {
+					exitOnError(err)
+				}
+			}
+
 			go watchFiles(settings.RootRoute, dir, dao)
 			abs, err := filepath.Abs(dir)
 			if err != nil {
@@ -85,6 +91,7 @@ func Serve() *cobra.Command {
 	setFlag(serve, "headless")
 	setFlag(serve, "reset")
 	setFlag(serve, "homePath")
+	setFlag(serve, "projectDir")
 	return serve
 }
 

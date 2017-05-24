@@ -13,14 +13,16 @@ import (
 )
 
 var (
-	dir, homePath   string
-	headless, reset bool
+	dir, homePath, projectDir string
+	headless, reset           bool
 )
 
 func setFlag(cmd *cobra.Command, flag string) {
 	switch flag {
 	case "dir":
 		cmd.Flags().StringVarP(&dir, "dir", "d", "docs", "Directory containing your guide and markdown files")
+	case "projectDir":
+		cmd.Flags().StringVarP(&projectDir, "projectDir", "w", "projects", "Directory containing team project READMEs")
 	case "headless":
 		cmd.Flags().BoolVar(&headless, "headless", false, "Run UDocs server in headless mode")
 	case "reset":
