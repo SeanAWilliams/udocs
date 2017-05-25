@@ -1,4 +1,4 @@
-UDocs [![Build Status](https://travis-ci.org/UltimateSoftware/udocs.svg?branch=master)](https://travis-ci.org/UltimateSoftware/udocs)
+UDocs [![Build Status](https://travis-ci.org/gdscheele/udocs.svg?branch=master)](https://travis-ci.org/gdscheele/udocs)
 ===
 
 `udocs` is a Go CLI that lets developers easily build, deploy, and publish their app's documentation
@@ -34,7 +34,7 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 ### Clone and build from source
 
 ```bash
-$ go get -u github.com/UltimateSoftware/udocs
+$ go get -u github.com/gdscheele/udocs
 ```
 
 ---

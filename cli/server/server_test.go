@@ -9,9 +9,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/UltimateSoftware/udocs/cli/config"
-	"github.com/UltimateSoftware/udocs/cli/storage"
-	"github.com/UltimateSoftware/udocs/cli/udocs"
+	"github.com/gdscheele/udocs/cli/config"
+	"github.com/gdscheele/udocs/cli/storage"
+	"github.com/gdscheele/udocs/cli/udocs"
 )
 
 func TestNew(t *testing.T) {

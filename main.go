@@ -1,6 +1,6 @@
 package main
 
-import "github.com/UltimateSoftware/udocs/cli/cmd"
+import "github.com/gdscheele/udocs/cli/cmd"
 
 var version string // set via -ldflags
 

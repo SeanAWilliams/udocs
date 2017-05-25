@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/UltimateSoftware/udocs",
+	"ImportPath": "github.com/gdscheele/udocs",
 	"GoVersion": "go1.7",
 	"GodepVersion": "v74",
 	"Deps": [

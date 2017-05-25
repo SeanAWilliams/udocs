@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/UltimateSoftware/udocs/cli/config"
+	"github.com/gdscheele/udocs/cli/config"
 	"github.com/spf13/cobra"
 )
 

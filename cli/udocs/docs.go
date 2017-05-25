@@ -13,7 +13,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/UltimateSoftware/udocs/cli/storage"
+	"github.com/gdscheele/udocs/cli/storage"
 	"github.com/fsnotify/fsnotify"
 )
 

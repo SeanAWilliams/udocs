@@ -8,8 +8,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/UltimateSoftware/udocs/cli/config"
-	"github.com/UltimateSoftware/udocs/cli/udocs"
+	"github.com/gdscheele/udocs/cli/config"
+	"github.com/gdscheele/udocs/cli/udocs"
 	"github.com/mholt/archiver"
 	"github.com/spf13/cobra"
 )
