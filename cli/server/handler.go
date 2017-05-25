@@ -43,11 +43,8 @@ func (s *Server) staticHandler(ctx context.Context, w http.ResponseWriter, r *ht
 }
 
 func (s *Server) rootDomainRedirect(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "/"+s.settings.DocsDir, http.StatusTemporaryRedirect)
-	// fmt.Println(r.URL.Path)
-	// r.URL.Path = "/" + s.settings.DocsDir + "/"
-	fmt.Println(r.URL.Path)
-	// s.pageHandler(ctx, w, r)
+	docsURL := s.scheme + "://" + s.host + ":" + s.settings.Port + "/" + s.settings.DocsDir
+	http.Redirect(w, r, docsURL, http.StatusTemporaryRedirect)
 }
 
 func (s *Server) pageHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
