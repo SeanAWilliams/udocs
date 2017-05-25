@@ -42,6 +42,14 @@ func (s *Server) staticHandler(ctx context.Context, w http.ResponseWriter, r *ht
 	http.StripPrefix("/static/", http.FileServer(rice.MustFindBox("../../static").HTTPBox())).ServeHTTP(w, r)
 }
 
+func (s *Server) rootDomainRedirect(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/"+s.settings.DocsDir, http.StatusTemporaryRedirect)
+	// fmt.Println(r.URL.Path)
+	// r.URL.Path = "/" + s.settings.DocsDir + "/"
+	fmt.Println(r.URL.Path)
+	// s.pageHandler(ctx, w, r)
+}
+
 func (s *Server) pageHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	data, err := s.dao.Fetch(r.URL.Path)
 	if err != nil {

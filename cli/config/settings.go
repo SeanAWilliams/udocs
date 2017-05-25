@@ -23,6 +23,8 @@ type Settings struct {
 	QuipAccessToken   string
 	PrimaryColor      string
 	HomePath          string
+	ProjectDir        string
+	DocsDir           string
 }
 
 func LoadSettings() Settings {
@@ -38,6 +40,8 @@ func DefaultSettings() Settings {
 		Routes:            []string{},
 		PrimaryColor:      "#5ca616",
 		HomePath:          "",
+		ProjectDir:        "",
+		DocsDir:           "",
 	}
 }
 

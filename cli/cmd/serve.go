@@ -62,14 +62,16 @@ func Serve() *cobra.Command {
 
 			settings.HomePath = homePath
 			settings.RootRoute = parseRoute(&settings)
+			settings.ProjectDir = projectDir
+			settings.DocsDir = dir
 			localServer := server.New(&settings, dao)
 
-			if err := udocs.Build(settings.RootRoute, dir, dao); err != nil {
+			if err := udocs.Build(settings.RootRoute+"/"+settings.DocsDir, settings.DocsDir, dao); err != nil {
 				exitOnError(err)
 			}
 
-			if projectDir != "" {
-				if err := udocs.Build(settings.RootRoute+"/", projectDir, dao); err != nil {
+			if settings.ProjectDir != "" {
+				if err := udocs.Build(settings.RootRoute+"/"+settings.ProjectDir, settings.ProjectDir, dao); err != nil {
 					exitOnError(err)
 				}
 			}
