@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gdscheele/udocs/cli/config"
-	"github.com/gdscheele/udocs/cli/udocs"
+	"github.com/seanawilliams/udocs/cli/config"
+	"github.com/seanawilliams/udocs/cli/udocs"
 	"github.com/spf13/cobra"
 )
 

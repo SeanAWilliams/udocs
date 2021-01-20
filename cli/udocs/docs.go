@@ -13,8 +13,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/gdscheele/udocs/cli/storage"
 	"github.com/fsnotify/fsnotify"
+	"github.com/seanawilliams/udocs/cli/storage"
 )
 
 var innerHTMLTemplate = MustParseTemplate(nil, "inner.html")

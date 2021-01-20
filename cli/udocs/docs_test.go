@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gdscheele/udocs/cli/storage"
+	"github.com/seanawilliams/udocs/cli/storage"
 )
 
 func TestValidate(t *testing.T) {

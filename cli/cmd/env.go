@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/gdscheele/udocs/cli/config"
+	"github.com/seanawilliams/udocs/cli/config"
 	"github.com/spf13/cobra"
 )
 

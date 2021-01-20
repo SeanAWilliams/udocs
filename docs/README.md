@@ -10,7 +10,7 @@ This model promotes developers to **treat a product's documentation no different
 The contents of your guide are written in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/),
 and must persist within a `/docs` directory at the root level of your application's Git repository.
 For an example `/docs` directory, you can refer to the `/docs` directory in the
-[UDocs GitHub repo](https://github.com/gdscheele/udocs).
+[UDocs GitHub repo](https://github.com/seanawilliams/udocs).
 
 <br>
 <hr>

@@ -34,7 +34,7 @@ From there, `udocs` can render the guide's content to HTML, and optionally serve
 ### Clone and build from source
 
 ```bash
-$ go get -u github.com/gdscheele/udocs
+$ go get -u github.com/seanawilliams/udocs
 ```
 
 ---

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gdscheele/udocs/cli/storage"
-	"github.com/gdscheele/udocs/cli/udocs"
+	"github.com/seanawilliams/udocs/cli/storage"
+	"github.com/seanawilliams/udocs/cli/udocs"
 	"github.com/spf13/cobra"
 )
 
