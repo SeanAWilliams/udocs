@@ -8,9 +8,9 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/mholt/archiver"
 	"github.com/seanawilliams/udocs/cli/config"
 	"github.com/seanawilliams/udocs/cli/udocs"
-	"github.com/mholt/archiver"
 	"github.com/spf13/cobra"
 )
 

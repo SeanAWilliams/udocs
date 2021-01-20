@@ -14,9 +14,9 @@ import (
 	"time"
 
 	rice "github.com/GeertJohan/go.rice"
+	"github.com/mholt/archiver"
 	"github.com/seanawilliams/udocs/cli/storage"
 	"github.com/seanawilliams/udocs/cli/udocs"
-	"github.com/mholt/archiver"
 	"golang.org/x/net/context"
 )
 
